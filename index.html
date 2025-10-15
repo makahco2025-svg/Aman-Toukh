@@ -127,18 +127,64 @@
             scroll-behavior: smooth;
         }
         
-        /* Logo styling */
+        /* Logo styling - محسّن لعرض أفضل */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
         .store-logo {
-            width: 45px;
-            height: 45px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #2563eb;
-            transition: transform 0.3s ease;
+            border: 3px solid #2563eb;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            background: white;
+            display: block;
         }
         
         .store-logo:hover {
             transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .store-logo.error {
+            display: none;
+        }
+        
+        .logo-fallback {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border: 3px solid #2563eb;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .logo-fallback:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1e293b;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         /* Grid layout for 3 items */
@@ -532,6 +578,16 @@
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
+            .logo-text {
+                font-size: 22px;
+            }
+            
+            .store-logo, .logo-fallback {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
             .contact-horizontal {
                 gap: 12px;
                 padding: 16px;
@@ -576,6 +632,16 @@
         }
         
         @media (max-width: 480px) {
+            .logo-text {
+                font-size: 18px;
+            }
+            
+            .store-logo, .logo-fallback {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
             .contact-horizontal {
                 flex-direction: column;
                 gap: 10px;
@@ -602,13 +668,22 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="/" class="flex items-center gap-3">
+                    <a href="/" class="logo-container">
+                        <!-- ============ مكان تغيير اللوجو ============ -->
+                        <!-- اللوجو الأساسي -->
                         <img 
-                            src="https://www2.0zz0.com/2025/10/15/23/973347483.jpg?auth_key=1792092669-20a83696a10f474c8963f3bd1f647270-0-265d856e9c2ca05dba666584d675a73e"
+                            id="storeLogo"
+                            src="https://z-cdn-media.chatglm.cn/files/bbb1827e-15ff-4dcf-95e1-377b988d24a1_470202668_557034183826800_5367961336325033333_n.jpg?auth_key=1792092669-20a83696a10f474c8963f3bd1f647270-0-265d856e9c2ca05dba666584d675a73e"
                             alt="منفذ امان فرع طوخ"
                             class="store-logo"
+                            onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';"
                         />
-                        <span class="text-2xl font-bold text-gray-800">منفذ امان فرع طوخ</span>
+                        <!-- اللوجو الاحتياطي -->
+                        <div id="logoFallback" class="logo-fallback" style="display: none;">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <!-- =========================================== -->
+                        <span class="logo-text">منفذ امان فرع طوخ</span>
                     </a>
                 </div>
 
@@ -933,7 +1008,7 @@
                     
                     <!-- Customer Location (GPS) -->
                     <div class="mb-4">
-                        <label for="customerLocation" class="block text-gray-700 font-medium mb-2"> الموقع (GPS)</label>
+                        <label for="customerLocation" class="block text-gray-700 font-medium mb-2">اللوكيون (GPS)</label>
                         <div class="flex gap-2">
                             <input
                                 type="text"
@@ -1125,6 +1200,32 @@
     </div>
 
     <script>
+        // ========================================
+        // ============ إعدادات الموقع ============
+        // ========================================
+        
+        // ============ مكان تغيير اللوجو ============
+        // قم بتغيير رابط الصورة هنا لتغيير لوجو المتجر
+        const STORE_LOGO = 'https://www2.0zz0.com/2025/10/15/23/973347483.jpg?auth_key=1792092669-20a83696a10f474c8963f3bd1f647270-0-265d856e9c2ca05dba666584d675a73e';
+        // ========================================
+        
+        // ============ بيانات المتجر ============
+        const STORE_NAME = 'منفذ امان فرع طوخ';
+        const WHATSAPP_NUMBER = '201030566078'; // رقم الواتساب للطلبات
+        const PHONE_NUMBER = '201234567890'; // رقم الهاتف
+        const FACEBOOK_PAGE = 'aman.toukh'; // صفحة الفيسبوك
+        const STORE_LOCATION = 'طوخ، القليوبية، مصر'; // عنوان المتجر
+        // ========================================
+        
+        // ============ كلمات المرور ============
+        const ADMIN_PASSWORD = 'admin123'; // كلمة مرور تسجيل الدخول للإحصائيات
+        const CLEAR_PASSWORD = 'clear2024'; // كلمة مرور مسح الإحصائيات
+        // ========================================
+        
+        // ========================================
+        // ============ بيانات المنتجات ============
+        // ========================================
+        
         // Data
         const offerProductsData = [
             {id: 101, name: "طبق بيض ابيض", oldPrice: "150.00 جنيه", newPrice: "130.00 جنيه", discount: "-25%", image: "https://cdn.metro-cc.ru/ru/ru_pim_195676001001_01.png", category: "dairy", endTime: "2024-12-31"},
@@ -1170,8 +1271,6 @@
         let autoRotateInterval;
         let isAuthenticated = false;
         let customerLocation = null;
-        const ADMIN_PASSWORD = 'admin123'; // كلمة مرور تسجيل الدخول
-        const CLEAR_PASSWORD = 'clear2024'; // كلمة مرور مسح الإحصائيات
 
         // Category translations
         const categoryTranslations = {
@@ -1779,7 +1878,7 @@
             saveStats();
             
             // Create WhatsApp message
-            let message = `طلب جديد من متجر منفذ أمان فرع طوخ\n\n`;
+            let message = `طلب جديد من متجر ${STORE_NAME}\n\n`;
             message += `بيانات العميل:\n`;
             message += `الاسم: ${name}\n`;
             message += `رقم الموبايل: ${phone}\n`;
@@ -1801,7 +1900,7 @@
             message += `تاريخ الطلب: ${orderData.date}`;
             
             // Open WhatsApp with message
-            const whatsappURL = `https://wa.me/201030566078?text=${encodeURIComponent(message)}`;
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
             window.open(whatsappURL, '_blank');
             
             // Clear cart
@@ -2068,5 +2167,3 @@
     </script>
 </body>
 </html>
-
-
