@@ -303,6 +303,36 @@
             pointer-events: all;
         }
         
+        /* Login modal styles */
+        .login-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .login-modal.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .password-input {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: #3b82f6;
+        }
+        
         /* Contact section horizontal layout */
         .contact-horizontal {
             display: flex;
@@ -392,6 +422,61 @@
             font-size: 48px;
             margin-bottom: 20px;
             animation: pulse 3s ease-in-out infinite;
+        }
+        
+        /* Error message animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .error-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        /* Confirmation modal styles */
+        .confirm-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .confirm-modal.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        /* Danger button styles */
+        .danger-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            transition: all 0.3s ease;
+        }
+        
+        .danger-btn:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        
+        .danger-btn:disabled {
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Security badge styles */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #78350f;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
         }
         
         /* Responsive adjustments */
@@ -731,6 +816,116 @@
         </div>
     </div>
 
+    <!-- Login Modal for Stats -->
+    <div id="loginModal" class="login-modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md m-4" role="dialog" aria-modal="true">
+            <div class="flex justify-between items-center p-5 border-b">
+                <h2 class="text-2xl font-bold text-blue-800">
+                    <i class="fas fa-lock ml-2"></i>
+                    تسجيل الدخول
+                </h2>
+                <button id="closeLoginBtn" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <p class="text-gray-600 mb-4">يرجى إدخال كلمة المرور للوصول إلى الإحصائيات</p>
+                    <div class="password-input">
+                        <input
+                            type="password"
+                            id="passwordInput"
+                            placeholder="أدخل كلمة المرور"
+                            class="w-full px-4 py-3 pr-12 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                            autocomplete="current-password"
+                        />
+                        <button id="togglePassword" class="password-toggle">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                    <div id="errorMessage" class="mt-2 text-red-600 text-sm hidden">
+                        <i class="fas fa-exclamation-circle ml-1"></i>
+                        <span id="errorText">كلمة المرور غير صحيحة</span>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button id="loginBtn" class="flex-1 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-sign-in-alt ml-2"></i>
+                        دخول
+                    </button>
+                    <button id="cancelLoginBtn" class="flex-1 bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                        إلغاء
+                    </button>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-xs text-gray-500">
+                        <i class="fas fa-info-circle ml-1"></i>
+                        للوصول إلى الإحصائيات، يرجى التواصل مع الإدارة
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal for Clearing Stats -->
+    <div id="confirmModal" class="confirm-modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md m-4" role="dialog" aria-modal="true">
+            <div class="flex justify-between items-center p-5 border-b">
+                <h2 class="text-2xl font-bold text-red-600">
+                    <i class="fas fa-exclamation-triangle ml-2"></i>
+                    تأكيد مسح الإحصائيات
+                </h2>
+                <button id="closeConfirmBtn" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                        <p class="text-red-800 font-semibold mb-2">
+                            <i class="fas fa-exclamation-circle ml-2"></i>
+                            تحذير: هذا الإجراء لا يمكن التراجع عنه!
+                        </p>
+                        <p class="text-red-700">سيتم حذف جميع بيانات الطلبات والإحصائيات بشكل نهائي.</p>
+                    </div>
+                    <p class="text-gray-600 mb-4">هل أنت متأكد من أنك تريد مسح جميع الإحصائيات؟</p>
+                    
+                    <!-- Security verification section -->
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="security-badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>حماية مزدوجة</span>
+                            </div>
+                        </div>
+                        <p class="text-amber-800 text-sm font-semibold mb-3">يرجى إدخال كلمة مرور التأكيد للمتابعة:</p>
+                        <div class="password-input mb-3">
+                            <input
+                                type="password"
+                                id="confirmPasswordInput"
+                                placeholder="كلمة مرور التأكيد"
+                                class="w-full px-4 py-3 pr-12 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                autocomplete="off"
+                            />
+                            <button id="toggleConfirmPassword" class="password-toggle">
+                                <i class="fas fa-eye" id="confirmEyeIcon"></i>
+                            </button>
+                        </div>
+                        <div id="confirmErrorMessage" class="text-red-600 text-sm hidden">
+                            <i class="fas fa-exclamation-circle ml-1"></i>
+                            <span id="confirmErrorText">كلمة مرور التأكيد غير صحيحة</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button id="confirmClearBtn" class="flex-1 danger-btn text-white font-bold py-3 px-4 rounded-lg disabled:opacity-50" disabled>
+                        <i class="fas fa-trash-alt ml-2"></i>
+                        مسح الكل
+                    </button>
+                    <button id="cancelConfirmBtn" class="flex-1 bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                        إلغاء
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Order Stats Modal -->
     <div id="statsModal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-lg shadow-2xl w-full max-w-lg m-4" role="dialog" aria-modal="true">
@@ -755,8 +950,12 @@
                         <!-- Top products will be inserted here by JavaScript -->
                     </ul>
                 </div>
-                <div class="pt-4 flex justify-end">
-                   <button id="closeStatsBtn2" class="bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors">إغلاق</button>
+                <div class="pt-4 flex justify-between gap-3">
+                   <button id="closeStatsBtn2" class="flex-1 bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors">إغلاق</button>
+                   <button id="clearStatsBtn" class="flex-1 danger-btn text-white font-bold py-2 px-6 rounded-lg">
+                       <i class="fas fa-trash-alt ml-2"></i>
+                       مسح الإحصائيات
+                   </button>
                 </div>
             </div>
         </div>
@@ -806,6 +1005,9 @@
         let selectedCategory = 'الكل';
         let searchQuery = '';
         let autoRotateInterval;
+        let isAuthenticated = false;
+        const ADMIN_PASSWORD = 'admin123'; // كلمة مرور تسجيل الدخول
+        const CLEAR_PASSWORD = 'clear2024'; // كلمة مرور مسح الإحصائيات
 
         // Category translations
         const categoryTranslations = {
@@ -1402,8 +1604,137 @@
             }
         }
 
+        // Login functions
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('open');
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMessage').classList.add('hidden');
+            document.getElementById('passwordInput').focus();
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('open');
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('passwordInput');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.className = 'fas fa-eye';
+            }
+        }
+
+        function attemptLogin() {
+            const passwordInput = document.getElementById('passwordInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const password = passwordInput.value.trim();
+            
+            if (password === '') {
+                errorText.textContent = 'يرجى إدخال كلمة المرور';
+                errorMessage.classList.remove('hidden');
+                passwordInput.classList.add('error-shake');
+                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
+                return;
+            }
+            
+            if (password === ADMIN_PASSWORD) {
+                isAuthenticated = true;
+                closeLoginModal();
+                openStatsModal();
+                showNotification('تم تسجيل الدخول بنجاح');
+            } else {
+                errorText.textContent = 'كلمة المرور غير صحيحة';
+                errorMessage.classList.remove('hidden');
+                passwordInput.classList.add('error-shake');
+                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        // Clear statistics functions
+        function openConfirmModal() {
+            document.getElementById('confirmModal').classList.add('open');
+            document.getElementById('confirmPasswordInput').value = '';
+            document.getElementById('confirmErrorMessage').classList.add('hidden');
+            document.getElementById('confirmPasswordInput').focus();
+            document.getElementById('confirmClearBtn').disabled = true;
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('open');
+        }
+
+        function toggleConfirmPasswordVisibility() {
+            const passwordInput = document.getElementById('confirmPasswordInput');
+            const eyeIcon = document.getElementById('confirmEyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.className = 'fas fa-eye';
+            }
+        }
+
+        function validateConfirmPassword() {
+            const passwordInput = document.getElementById('confirmPasswordInput');
+            const errorMessage = document.getElementById('confirmErrorMessage');
+            const errorText = document.getElementById('confirmErrorText');
+            const confirmBtn = document.getElementById('confirmClearBtn');
+            const password = passwordInput.value.trim();
+            
+            if (password === '') {
+                errorText.textContent = 'يرجى إدخال كلمة مرور التأكيد';
+                errorMessage.classList.remove('hidden');
+                passwordInput.classList.add('error-shake');
+                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
+                confirmBtn.disabled = true;
+                return false;
+            }
+            
+            if (password === CLEAR_PASSWORD) {
+                errorMessage.classList.add('hidden');
+                confirmBtn.disabled = false;
+                return true;
+            } else {
+                errorText.textContent = 'كلمة مرور التأكيد غير صحيحة';
+                errorMessage.classList.remove('hidden');
+                passwordInput.classList.add('error-shake');
+                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
+                confirmBtn.disabled = true;
+                return false;
+            }
+        }
+
+        function clearAllStatistics() {
+            // Clear all orders
+            orders = [];
+            
+            // Update the display
+            updateOrderStats();
+            
+            // Close confirmation modal
+            closeConfirmModal();
+            
+            // Show success notification
+            showNotification('تم مسح جميع الإحصائيات بنجاح');
+        }
+
         // Open/close stats modal
         function openStatsModal() {
+            if (!isAuthenticated) {
+                openLoginModal();
+                return;
+            }
+            
             document.getElementById('statsModal').classList.add('open');
             updateOrderStats();
         }
@@ -1478,13 +1809,54 @@
             document.getElementById('cartOverlay').addEventListener('click', closeCart);
             document.getElementById('checkoutBtn').addEventListener('click', checkout);
             
-            // Stats modal events
+            // Login modal events
             document.getElementById('statsBtn').addEventListener('click', openStatsModal);
+            document.getElementById('closeLoginBtn').addEventListener('click', closeLoginModal);
+            document.getElementById('cancelLoginBtn').addEventListener('click', closeLoginModal);
+            document.getElementById('loginBtn').addEventListener('click', attemptLogin);
+            document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
+            
+            // Confirmation modal events
+            document.getElementById('clearStatsBtn').addEventListener('click', openConfirmModal);
+            document.getElementById('closeConfirmBtn').addEventListener('click', closeConfirmModal);
+            document.getElementById('cancelConfirmBtn').addEventListener('click', closeConfirmModal);
+            document.getElementById('confirmClearBtn').addEventListener('click', clearAllStatistics);
+            document.getElementById('toggleConfirmPassword').addEventListener('click', toggleConfirmPasswordVisibility);
+            
+            // Stats modal events
             document.getElementById('closeStatsBtn').addEventListener('click', closeStatsModal);
             document.getElementById('closeStatsBtn2').addEventListener('click', closeStatsModal);
             
             // Search event
             document.getElementById('searchInput').addEventListener('input', handleSearch);
+            
+            // Enter key to submit login
+            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    attemptLogin();
+                }
+            });
+            
+            // Password validation for confirm modal
+            document.getElementById('confirmPasswordInput').addEventListener('input', validateConfirmPassword);
+            document.getElementById('confirmPasswordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('confirmClearBtn').disabled) {
+                    clearAllStatistics();
+                }
+            });
+            
+            // Close modals on overlay click
+            document.getElementById('loginModal').addEventListener('click', (e) => {
+                if (e.target.id === 'loginModal') {
+                    closeLoginModal();
+                }
+            });
+            
+            document.getElementById('confirmModal').addEventListener('click', (e) => {
+                if (e.target.id === 'confirmModal') {
+                    closeConfirmModal();
+                }
+            });
             
             // Pause auto-rotation on hover
             const carousel = document.getElementById('featuredCarousel');
