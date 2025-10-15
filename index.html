@@ -201,11 +201,11 @@
             background: linear-gradient(135deg, #1d4ed8, #1e40af);
         }
         
-        /* Scroll to top button - تعديل الموقع ليكون في نفس مستوى سلة التسوق من الجانب الأيمن */
+        /* Scroll to top button */
         .scroll-to-top {
             position: fixed;
-            bottom: 6rem; /* نفس مستوى سلة التسوق */
-            right: 2rem; /* الجانب الأيمن */
+            bottom: 6rem;
+            right: 2rem;
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             width: 3.5rem;
@@ -494,6 +494,40 @@
         .required-field::after {
             content: " *";
             color: #ef4444;
+        }
+        
+        /* Location button styles */
+        .location-btn-custom {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .location-btn-custom:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .location-btn-custom:disabled {
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .location-loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         /* Responsive adjustments */
@@ -897,15 +931,28 @@
                         ></textarea>
                     </div>
                     
-                    <!-- Customer Location (Optional) -->
+                    <!-- Customer Location (GPS) -->
                     <div class="mb-4">
-                        <label for="customerLocation" class="block text-gray-700 font-medium mb-2">الموقع (اختياري)</label>
-                        <input
-                            type="text"
-                            id="customerLocation"
-                            placeholder="أدخل رابط الموقع أو ملاحظات إضافية"
-                            class="w-full px-4 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                        />
+                        <label for="customerLocation" class="block text-gray-700 font-medium mb-2">اللوكيون (GPS)</label>
+                        <div class="flex gap-2">
+                            <input
+                                type="text"
+                                id="customerLocation"
+                                placeholder="سيتم الحصول على الموقع الجغرافي تلقائياً"
+                                class="flex-1 px-4 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                                readonly
+                            />
+                            <button
+                                type="button"
+                                id="getLocationBtn"
+                                class="location-btn-custom px-4 py-3 rounded-lg font-medium flex items-center gap-2 whitespace-nowrap"
+                                onclick="getCurrentLocation()"
+                            >
+                                <i class="fas fa-location-crosshairs"></i>
+                                <span id="locationBtnText">الحصول على الموقع</span>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">سيتم الحصول على إحداثيات GPS الحالية للموقع</p>
                     </div>
                     
                     <div id="customerErrorMessage" class="mt-2 text-red-600 text-sm hidden">
@@ -1122,6 +1169,7 @@
         let searchQuery = '';
         let autoRotateInterval;
         let isAuthenticated = false;
+        let customerLocation = null;
         const ADMIN_PASSWORD = 'admin123'; // كلمة مرور تسجيل الدخول
         const CLEAR_PASSWORD = 'clear2024'; // كلمة مرور مسح الإحصائيات
 
@@ -1187,6 +1235,95 @@
                 return html;
             }
             return '';
+        }
+
+        // Get current location
+        function getCurrentLocation() {
+            const locationBtn = document.getElementById('getLocationBtn');
+            const locationBtnText = document.getElementById('locationBtnText');
+            const locationInput = document.getElementById('customerLocation');
+            
+            // Check if geolocation is supported
+            if (!navigator.geolocation) {
+                showNotification('المتصفح لا يدعم تحديد الموقع الجغرافي');
+                return;
+            }
+            
+            // Show loading state
+            locationBtn.disabled = true;
+            locationBtnText.innerHTML = '<span class="location-loading"></span> جاري الحصول على الموقع...';
+            
+            // Get current position
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    // Success callback
+                    const { latitude, longitude } = position.coords;
+                    customerLocation = {
+                        latitude: latitude.toFixed(6),
+                        longitude: longitude.toFixed(6),
+                        accuracy: Math.round(position.coords.accuracy),
+                        timestamp: new Date().toLocaleString('ar-EG')
+                    };
+                    
+                    // Create Google Maps link
+                    const mapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    
+                    // Update input with location info
+                    locationInput.value = `📍 ${customerLocation.latitude}, ${customerLocation.longitude} (دقة: ${customerLocation.accuracy}م)`;
+                    locationInput.title = `اضغط لفتح الخريطة: ${mapsLink}`;
+                    
+                    // Make input clickable to open map
+                    locationInput.style.cursor = 'pointer';
+                    locationInput.onclick = function() {
+                        window.open(mapsLink, '_blank');
+                    };
+                    
+                    // Reset button
+                    locationBtn.disabled = false;
+                    locationBtnText.innerHTML = '<i class="fas fa-check"></i> تم الحصول على الموقع';
+                    locationBtn.classList.remove('location-btn-custom');
+                    locationBtn.classList.add('bg-green-600');
+                    
+                    showNotification('تم الحصول على الموقع الجغرافي بنجاح');
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        locationBtnText.innerHTML = '<i class="fas fa-location-crosshairs"></i> الحصول على الموقع';
+                        locationBtn.classList.remove('bg-green-600');
+                        locationBtn.classList.add('location-btn-custom');
+                    }, 3000);
+                },
+                (error) => {
+                    // Error callback
+                    let errorMessage = 'فشل الحصول على الموقع: ';
+                    
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage += 'تم رفض الإذن للوصول إلى الموقع';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage += 'معلومات الموقع غير متاحة';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage += 'انتهت مهلة الحصول على الموقع';
+                            break;
+                        default:
+                            errorMessage += 'حدث خطأ غير معروف';
+                            break;
+                    }
+                    
+                    // Reset button
+                    locationBtn.disabled = false;
+                    locationBtnText.innerHTML = '<i class="fas fa-location-crosshairs"></i> الحصول على الموقع';
+                    
+                    showNotification(errorMessage);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
         }
 
         // Create featured offer carousel item
@@ -1589,6 +1726,12 @@
         // Close customer modal
         function closeCustomerModal() {
             document.getElementById('customerModal').classList.remove('open');
+            // Reset location data
+            customerLocation = null;
+            document.getElementById('customerLocation').value = '';
+            document.getElementById('customerLocation').onclick = null;
+            document.getElementById('customerLocation').style.cursor = 'default';
+            document.getElementById('customerLocation').title = '';
         }
 
         // Submit customer data
@@ -1620,7 +1763,8 @@
                     name,
                     phone,
                     address,
-                    location: location || 'غير محدد'
+                    location: location || 'غير محدد',
+                    gps: customerLocation
                 },
                 items: cartItems,
                 total: cartItems.reduce((sum, item) => {
@@ -1641,7 +1785,11 @@
             message += `رقم الموبايل: ${phone}\n`;
             message += `العنوان: ${address}\n`;
             if (location) {
-                message += `الموقع: ${location}\n`;
+                message += `اللوكيون: ${location}\n`;
+            }
+            if (customerLocation) {
+                message += `GPS: ${customerLocation.latitude}, ${customerLocation.longitude}\n`;
+                message += `رابط الخريطة: https://www.google.com/maps?q=${customerLocation.latitude},${customerLocation.longitude}\n`;
             }
             message += `\nالمنتجات المطلوبة:\n`;
             
