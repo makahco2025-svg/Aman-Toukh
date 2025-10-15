@@ -201,11 +201,11 @@
             background: linear-gradient(135deg, #1d4ed8, #1e40af);
         }
         
-        /* Scroll to top button */
+        /* Scroll to top button - تعديل الموقع ليكون في نفس مستوى سلة التسوق من الجانب الأيمن */
         .scroll-to-top {
             position: fixed;
-            bottom: 12rem;
-            right: 2rem;
+            bottom: 6rem; /* نفس مستوى سلة التسوق */
+            right: 2rem; /* الجانب الأيمن */
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             width: 3.5rem;
@@ -479,6 +479,23 @@
             font-weight: 600;
         }
         
+        /* Customer info modal styles */
+        .customer-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .customer-modal.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: #ef4444;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .contact-horizontal {
@@ -515,6 +532,13 @@
             .location-icon-large {
                 font-size: 40px;
             }
+            
+            .scroll-to-top {
+                bottom: 5rem;
+                right: 1rem;
+                width: 3rem;
+                height: 3rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -526,6 +550,13 @@
             .contact-item {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .scroll-to-top {
+                bottom: 4.5rem;
+                right: 0.5rem;
+                width: 2.5rem;
+                height: 2.5rem;
             }
         }
     </style>
@@ -816,6 +847,91 @@
         </div>
     </div>
 
+    <!-- Customer Info Modal -->
+    <div id="customerModal" class="customer-modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md m-4" role="dialog" aria-modal="true">
+            <div class="flex justify-between items-center p-5 border-b">
+                <h2 class="text-2xl font-bold text-blue-800">
+                    <i class="fas fa-user ml-2"></i>
+                    بيانات العميل
+                </h2>
+                <button id="closeCustomerBtn" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <p class="text-gray-600 mb-4">يرجى إدخال بياناتك لإتمام الطلب</p>
+                    
+                    <!-- Customer Name -->
+                    <div class="mb-4">
+                        <label for="customerName" class="block text-gray-700 font-medium mb-2 required-field">اسم العميل</label>
+                        <input
+                            type="text"
+                            id="customerName"
+                            placeholder="أدخل اسمك الكامل"
+                            class="w-full px-4 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                            required
+                        />
+                    </div>
+                    
+                    <!-- Customer Phone -->
+                    <div class="mb-4">
+                        <label for="customerPhone" class="block text-gray-700 font-medium mb-2 required-field">رقم الموبايل</label>
+                        <input
+                            type="tel"
+                            id="customerPhone"
+                            placeholder="أدخل رقم الموبايل"
+                            class="w-full px-4 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                            required
+                        />
+                    </div>
+                    
+                    <!-- Customer Address -->
+                    <div class="mb-4">
+                        <label for="customerAddress" class="block text-gray-700 font-medium mb-2 required-field">العنوان</label>
+                        <textarea
+                            id="customerAddress"
+                            placeholder="أدخل عنوانك بالتفصيل"
+                            rows="3"
+                            class="w-full px-4 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                            required
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Customer Location (Optional) -->
+                    <div class="mb-4">
+                        <label for="customerLocation" class="block text-gray-700 font-medium mb-2">الموقع (اختياري)</label>
+                        <input
+                            type="text"
+                            id="customerLocation"
+                            placeholder="أدخل رابط الموقع أو ملاحظات إضافية"
+                            class="w-full px-4 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        />
+                    </div>
+                    
+                    <div id="customerErrorMessage" class="mt-2 text-red-600 text-sm hidden">
+                        <i class="fas fa-exclamation-circle ml-1"></i>
+                        <span id="customerErrorText">يرجى ملء جميع الحقول الإلزامية</span>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button id="submitCustomerBtn" class="flex-1 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-paper-plane ml-2"></i>
+                        إرسال الطلب
+                    </button>
+                    <button id="cancelCustomerBtn" class="flex-1 bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                        إلغاء
+                    </button>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-xs text-gray-500">
+                        <i class="fas fa-lock ml-1"></i>
+                        سيتم إرسال طلبك عبر واتساب إلى رقم 01030566078
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Login Modal for Stats -->
     <div id="loginModal" class="login-modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-lg shadow-2xl w-full max-w-md m-4" role="dialog" aria-modal="true">
@@ -1093,23 +1209,20 @@
                                 </div>
                             </div>
                             <div class="md:w-2/3 text-center md:text-right">
-                                <div class="flex items-center justify-center md:justify-end gap-3 mb-3">
-                                    <i class="fas ${getCategoryIcon(offer.category)} text-3xl"></i>
-                                    <h2 class="text-3xl font-bold">${offer.name}</h2>
+                                <h3 class="text-2xl font-bold mb-2">${offer.name}</h3>
+                                <div class="flex items-center justify-center md:justify-end gap-3 mb-4">
+                                    <span class="text-xl line-through opacity-70">${offer.oldPrice}</span>
+                                    <span class="text-3xl font-bold">${offer.newPrice}</span>
                                 </div>
-                                <div class="flex items-center justify-center md:justify-end gap-4 mb-4">
-                                    <span class="text-4xl font-bold">${offer.newPrice}</span>
-                                    <span class="text-2xl line-through opacity-70">${offer.oldPrice}</span>
-                                </div>
-                                <div class="flex items-center justify-center md:justify-end gap-4 mb-4" id="countdown-${offer.id}">
+                                <div class="flex justify-center md:justify-end mb-4">
                                     ${formatCountdown(offer.endTime)}
                                 </div>
                                 <button 
-                                    onclick="addToCart(${JSON.stringify(offer).replace(/"/g, '&quot;')})"
-                                    class="bg-white text-gray-900 px-8 py-3 rounded-full font-bold text-lg hover:scale-105 transition-transform shine-effect"
+                                    class="bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-50 transition-colors"
+                                    onclick="addToCart(${offer.id}, '${offer.name}', '${offer.newPrice}', '${offer.image}')"
                                 >
-                                    <i class="fas fa-shopping-cart ml-2"></i>
-                                    أضف للسلة الآن
+                                    <i class="fas fa-cart-plus ml-2"></i>
+                                    أضف للسلة
                                 </button>
                             </div>
                         </div>
@@ -1121,53 +1234,33 @@
         // Create offer card
         function createOfferCard(offer) {
             return `
-                <div class="stagger-item">
-                    <div class="offer-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl relative group h-full">
-                        <!-- Category Badge -->
-                        <div class="absolute top-3 right-3 bg-gradient-to-r ${getCategoryColor(offer.category)} text-white px-3 py-1 rounded-full text-xs font-bold z-10">
+                <div class="offer-card bg-white rounded-xl shadow-lg overflow-hidden stagger-item">
+                    <div class="relative">
+                        <img src="${offer.image}" alt="${offer.name}" class="w-full h-48 object-cover">
+                        <div class="absolute top-3 left-3 bg-gradient-to-r ${getCategoryColor(offer.category)} text-white px-3 py-1 rounded-full text-sm font-bold">
                             <i class="fas ${getCategoryIcon(offer.category)} ml-1"></i>
                             ${offer.category}
                         </div>
-                        
-                        <!-- Discount Badge -->
-                        <div class="absolute top-3 left-3 bg-red-600 text-white px-3 py-1 rounded-lg text-sm font-bold z-10 shadow-lg">
+                        <div class="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-lg font-bold pulse-badge">
                             ${offer.discount}
                         </div>
-                        
-                        <!-- Product Image -->
-                        <div class="relative h-48 overflow-hidden">
-                            <img 
-                                src="${offer.image}" 
-                                alt="${offer.name}"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            />
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold mb-2">${offer.name}</h3>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xl line-through text-gray-500">${offer.oldPrice}</span>
+                            <span class="text-xl font-bold text-blue-600">${offer.newPrice}</span>
                         </div>
-                        
-                        <!-- Product Details -->
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-gray-800 mb-2 line-clamp-2">${offer.name}</h3>
-                            
-                            <!-- Price Comparison -->
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <p class="text-2xl font-bold text-blue-600">${offer.newPrice}</p>
-                                    <p class="text-sm text-gray-500 line-through">${offer.oldPrice}</p>
-                                </div>
-                                <div id="countdown-grid-${offer.id}">
-                                    ${formatCountdown(offer.endTime)}
-                                </div>
-                            </div>
-                            
-                            <!-- Add to Cart Button -->
-                            <button 
-                                onclick="addToCart(${JSON.stringify(offer).replace(/"/g, '&quot;')})"
-                                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
-                            >
-                                <i class="fas fa-cart-plus ml-2"></i>
-                                أضف للسلة
-                            </button>
+                        <div class="mb-3">
+                            ${formatCountdown(offer.endTime)}
                         </div>
+                        <button 
+                            class="w-full bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors"
+                            onclick="addToCart(${offer.id}, '${offer.name}', '${offer.newPrice}', '${offer.image}')"
+                        >
+                            <i class="fas fa-cart-plus ml-2"></i>
+                            أضف للسلة
+                        </button>
                     </div>
                 </div>
             `;
@@ -1176,25 +1269,32 @@
         // Create product card
         function createProductCard(product) {
             return `
-                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 sm:h-56 object-cover" loading="lazy" />
-                    <div class="p-4 text-center flex-grow flex flex-col">
-                        <h3 class="font-bold text-lg text-gray-800 mb-2">${product.name}</h3>
-                        <p class="text-xl font-bold text-blue-600 mb-4 flex-grow">${product.price}</p>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                        <div class="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            ${categoryTranslations[product.category] || product.category}
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold mb-2">${product.name}</h3>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xl font-bold text-blue-600">${product.price}</span>
+                        </div>
                         <button 
-                            onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})"
-                            class="mt-auto w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300 flex items-center justify-center gap-2"
+                            class="w-full bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors"
+                            onclick="addToCart(${product.id}, '${product.name}', '${product.price}', '${product.image}')"
                         >
-                            <i class="fas fa-cart-plus"></i>
-                            <span>أضف إلى السلة</span>
+                            <i class="fas fa-cart-plus ml-2"></i>
+                            أضف للسلة
                         </button>
                     </div>
                 </div>
             `;
         }
 
-        // Initialize carousel
-        function initCarousel() {
+        // Initialize featured carousel
+        function initFeaturedCarousel() {
             const carousel = document.getElementById('featuredCarousel');
             const indicators = document.getElementById('carouselIndicators');
             
@@ -1202,160 +1302,101 @@
             let carouselHTML = '';
             let indicatorsHTML = '';
             
-            offerProductsData.forEach((offer, index) => {
+            offerProductsData.slice(0, 3).forEach((offer, index) => {
                 carouselHTML += createCarouselItem(offer, index);
                 indicatorsHTML += `
-                    <button
-                        onclick="goToFeaturedOffer(${index})"
-                        class="w-3 h-3 rounded-full transition-all duration-300 ${
-                            index === currentFeaturedIndex 
-                                ? 'bg-white w-8' 
-                                : 'bg-white/50 hover:bg-white/70'
-                        }"
-                        aria-label="عرض العرض ${index + 1}"
-                    />
+                    <button 
+                        class="w-3 h-3 rounded-full ${index === 0 ? 'bg-white' : 'bg-white/50'} transition-all duration-300"
+                        data-index="${index}"
+                        onclick="goToSlide(${index})"
+                    ></button>
                 `;
             });
             
             carousel.innerHTML = carouselHTML;
             indicators.innerHTML = indicatorsHTML;
             
-            // Start auto-rotation
+            // Start auto rotation
             startAutoRotation();
         }
 
-        // Start auto rotation
-        function startAutoRotation() {
-            autoRotateInterval = setInterval(() => {
-                goToFeaturedOffer((currentFeaturedIndex + 1) % offerProductsData.length);
-            }, 10000);
-        }
-
-        // Stop auto rotation
-        function stopAutoRotation() {
-            if (autoRotateInterval) {
-                clearInterval(autoRotateInterval);
-            }
-        }
-
-        // Go to specific featured offer
-        function goToFeaturedOffer(index) {
+        // Go to specific slide
+        function goToSlide(index) {
+            const items = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('#carouselIndicators button');
+            
             // Hide current item
-            const currentItem = document.querySelector(`.carousel-item[data-index="${currentFeaturedIndex}"]`);
-            if (currentItem) {
-                currentItem.classList.remove('active');
-                currentItem.classList.add('hidden');
-            }
+            items[currentFeaturedIndex].classList.remove('active');
+            items[currentFeaturedIndex].classList.add('hidden');
+            indicators[currentFeaturedIndex].classList.remove('bg-white');
+            indicators[currentFeaturedIndex].classList.add('bg-white/50');
             
             // Update current index
             currentFeaturedIndex = index;
             
             // Show new item
-            const newItem = document.querySelector(`.carousel-item[data-index="${currentFeaturedIndex}"]`);
-            if (newItem) {
-                newItem.classList.remove('hidden');
-                newItem.classList.add('active');
-            }
+            items[currentFeaturedIndex].classList.remove('hidden');
+            items[currentFeaturedIndex].classList.add('active');
+            indicators[currentFeaturedIndex].classList.remove('bg-white/50');
+            indicators[currentFeaturedIndex].classList.add('bg-white');
             
-            // Update indicators
-            updateIndicators();
+            // Reset auto rotation
+            resetAutoRotation();
         }
 
-        // Update carousel indicators
-        function updateIndicators() {
-            const indicators = document.querySelectorAll('#carouselIndicators button');
-            indicators.forEach((indicator, index) => {
-                if (index === currentFeaturedIndex) {
-                    indicator.className = 'w-3 h-3 rounded-full transition-all duration-300 bg-white w-8';
-                } else {
-                    indicator.className = 'w-3 h-3 rounded-full transition-all duration-300 bg-white/50 hover:bg-white/70';
-                }
-            });
+        // Next slide
+        function nextSlide() {
+            const nextIndex = (currentFeaturedIndex + 1) % 3;
+            goToSlide(nextIndex);
+        }
+
+        // Previous slide
+        function prevSlide() {
+            const prevIndex = (currentFeaturedIndex - 1 + 3) % 3;
+            goToSlide(prevIndex);
+        }
+
+        // Start auto rotation
+        function startAutoRotation() {
+            autoRotateInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Reset auto rotation
+        function resetAutoRotation() {
+            clearInterval(autoRotateInterval);
+            startAutoRotation();
         }
 
         // Initialize offers grid
         function initOffersGrid() {
             const grid = document.getElementById('offers-grid');
-            const initialOffers = offerProductsData.slice(1, 4);
-            const remainingOffers = offerProductsData.slice(4);
-            const displayOffers = showAllOffers ? [...initialOffers, ...remainingOffers] : initialOffers;
+            const offersToShow = showAllOffers ? offerProductsData : offerProductsData.slice(3);
             
             let gridHTML = '';
-            displayOffers.forEach(offer => {
+            offersToShow.forEach(offer => {
                 gridHTML += createOfferCard(offer);
             });
             
             grid.innerHTML = gridHTML;
-            
-            // Update toggle button
-            const toggleBtn = document.getElementById('toggleOffersBtn');
-            const toggleText = document.getElementById('toggleText');
-            const icon = toggleBtn.querySelector('i');
-            
-            if (showAllOffers) {
-                grid.className = 'grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
-                toggleText.textContent = 'عرض عروض أقل';
-                icon.className = 'fas fa-chevron-up ml-2';
-            } else {
-                grid.className = 'grid gap-6 offers-grid-3';
-                toggleText.textContent = `عرض جميع العروض (${remainingOffers.length} +)`;
-                icon.className = 'fas fa-chevron-down ml-2';
-            }
-        }
-
-        // Initialize category filter
-        function initCategoryFilter() {
-            const filter = document.getElementById('categoryFilter');
-            const categories = ['الكل', ...new Set(productsData.map(p => p.category))];
-            
-            let filterHTML = '';
-            categories.forEach(category => {
-                const displayName = category === 'الكل' ? 'الكل' : categoryTranslations[category] || category;
-                const isActive = category === selectedCategory;
-                filterHTML += `
-                    <button
-                        onclick="selectCategory('${category}')"
-                        class="px-5 py-2 rounded-full font-semibold text-sm transition-all duration-300 shadow-sm ${
-                            isActive 
-                                ? 'bg-blue-600 text-white scale-105 shadow-md' 
-                                : 'bg-white text-blue-600 hover:bg-blue-50'
-                        }"
-                    >
-                        ${displayName}
-                    </button>
-                `;
-            });
-            
-            filter.innerHTML = filterHTML;
         }
 
         // Initialize products grid
         function initProductsGrid() {
             const grid = document.getElementById('productsGrid');
-            
-            // Filter products
             let filteredProducts = productsData;
             
+            // Filter by category
             if (selectedCategory !== 'الكل') {
-                filteredProducts = filteredProducts.filter(p => p.category === selectedCategory);
-            }
-            
-            if (searchQuery) {
-                filteredProducts = filteredProducts.filter(p => 
-                    p.name.toLowerCase().includes(searchQuery.toLowerCase())
+                filteredProducts = filteredProducts.filter(product => 
+                    categoryTranslations[product.category] === selectedCategory
                 );
             }
             
-            if (filteredProducts.length === 0) {
-                grid.innerHTML = `
-                    <div class="text-center py-12 col-span-full">
-                        <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
-                        <p class="text-xl text-gray-500">
-                            ${searchQuery ? `لا توجد نتائج لبحثك عن "${searchQuery}"` : "لا توجد منتجات في هذه الفئة"}
-                        </p>
-                    </div>
-                `;
-                return;
+            // Filter by search query
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+                );
             }
             
             let gridHTML = '';
@@ -1366,502 +1407,515 @@
             grid.innerHTML = gridHTML;
         }
 
-        // Select category
-        function selectCategory(category) {
+        // Initialize category filter
+        function initCategoryFilter() {
+            const filter = document.getElementById('categoryFilter');
+            const categories = ['الكل', ...Object.values(categoryTranslations)];
+            
+            let filterHTML = '';
+            categories.forEach(category => {
+                const isActive = category === selectedCategory;
+                filterHTML += `
+                    <button 
+                        class="px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+                            isActive 
+                            ? 'bg-blue-600 text-white' 
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        }"
+                        onclick="filterByCategory('${category}')"
+                    >
+                        ${category}
+                    </button>
+                `;
+            });
+            
+            filter.innerHTML = filterHTML;
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
             selectedCategory = category;
             initCategoryFilter();
             initProductsGrid();
         }
 
-        // Toggle offers display
-        function toggleOffers() {
+        // Toggle show all offers
+        function toggleShowAllOffers() {
             showAllOffers = !showAllOffers;
+            const toggleText = document.getElementById('toggleText');
+            toggleText.textContent = showAllOffers ? 'عرض عروض أقل' : 'عرض جميع العروض';
             initOffersGrid();
-            
-            // Scroll to offers section
-            setTimeout(() => {
-                const offersSection = document.getElementById('offers-grid');
-                if (offersSection) {
-                    offersSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-            }, 100);
         }
 
-        // Add to cart function
-        function addToCart(product) {
-            const existingItem = cartItems.find(item => item.id === product.id);
+        // Add to cart
+        function addToCart(id, name, price, image) {
+            // Check if item already in cart
+            const existingItemIndex = cartItems.findIndex(item => item.id === id);
             
-            if (existingItem) {
-                existingItem.quantity++;
+            if (existingItemIndex !== -1) {
+                // Increment quantity if already in cart
+                cartItems[existingItemIndex].quantity += 1;
             } else {
+                // Add new item to cart
                 cartItems.push({
-                    ...product,
-                    quantity: 1,
-                    price: product.newPrice || product.price
+                    id,
+                    name,
+                    price,
+                    image,
+                    quantity: 1
                 });
             }
             
-            updateCart();
+            updateCartUI();
             showNotification('تمت إضافة المنتج إلى السلة');
         }
 
-        // Update cart
-        function updateCart() {
-            updateCartCount();
-            renderCartItems();
-            updateCartTotal();
-        }
-
-        // Update cart count
-        function updateCartCount() {
+        // Update cart UI
+        function updateCartUI() {
             const cartCount = document.getElementById('cartCount');
-            const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            
-            if (totalItems > 0) {
-                cartCount.textContent = totalItems;
-                cartCount.classList.remove('hidden');
-            } else {
-                cartCount.classList.add('hidden');
-            }
-        }
-
-        // Render cart items
-        function renderCartItems() {
             const cartItemsContainer = document.getElementById('cartItems');
             const emptyCart = document.getElementById('emptyCart');
             const cartFooter = document.getElementById('cartFooter');
+            const cartTotal = document.getElementById('cartTotal');
             
+            // Update cart count
+            const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.classList.toggle('hidden', totalItems === 0);
+            
+            // Update cart items
             if (cartItems.length === 0) {
-                cartItemsContainer.innerHTML = '';
-                emptyCart.style.display = 'block';
+                emptyCart.classList.remove('hidden');
                 cartFooter.classList.add('hidden');
-                return;
-            }
-            
-            emptyCart.style.display = 'none';
-            cartFooter.classList.remove('hidden');
-            
-            let itemsHTML = '';
-            cartItems.forEach(item => {
-                itemsHTML += `
-                    <div class="flex items-center gap-4 bg-white p-3 rounded-lg shadow-sm">
-                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-md" />
-                        <div class="flex-grow">
-                            <h3 class="font-bold text-gray-800">${item.name}</h3>
-                            <p class="text-blue-600 font-semibold">${item.price}</p>
-                            <div class="flex items-center gap-2 mt-2">
-                                <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" class="w-7 h-7 bg-gray-200 rounded-full font-bold text-lg">-</button>
-                                <span>${item.quantity}</span>
-                                <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" class="w-7 h-7 bg-gray-200 rounded-full font-bold text-lg">+</button>
+                cartItemsContainer.innerHTML = '';
+            } else {
+                emptyCart.classList.add('hidden');
+                cartFooter.classList.remove('hidden');
+                
+                let cartHTML = '';
+                let total = 0;
+                
+                cartItems.forEach(item => {
+                    // Extract numeric price from string (e.g., "130.00 جنيه" -> 130.00)
+                    const priceValue = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                    const itemTotal = priceValue * item.quantity;
+                    total += itemTotal;
+                    
+                    cartHTML += `
+                        <div class="bg-white rounded-lg p-4 shadow-md">
+                            <div class="flex items-center gap-4">
+                                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                                <div class="flex-grow">
+                                    <h4 class="font-bold">${item.name}</h4>
+                                    <p class="text-gray-600">${item.price}</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button 
+                                        class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                                        onclick="updateQuantity(${item.id}, -1)"
+                                    >
+                                        <i class="fas fa-minus text-xs"></i>
+                                    </button>
+                                    <span class="w-8 text-center font-bold">${item.quantity}</span>
+                                    <button 
+                                        class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                                        onclick="updateQuantity(${item.id}, 1)"
+                                    >
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </button>
+                                </div>
+                                <button 
+                                    class="text-red-500 hover:text-red-700 transition-colors"
+                                    onclick="removeFromCart(${item.id})"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                         </div>
-                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 transition-colors ps-2">
-                            <i class="fas fa-trash-alt text-lg"></i>
-                        </button>
-                    </div>
-                `;
-            });
-            
-            cartItemsContainer.innerHTML = itemsHTML;
+                    `;
+                });
+                
+                cartItemsContainer.innerHTML = cartHTML;
+                cartTotal.textContent = `${total.toFixed(2)} جنيه`;
+            }
         }
 
-        // Update quantity
-        function updateQuantity(productId, newQuantity) {
-            if (newQuantity <= 0) {
-                removeFromCart(productId);
-                return;
-            }
+        // Update item quantity
+        function updateQuantity(id, change) {
+            const itemIndex = cartItems.findIndex(item => item.id === id);
             
-            const item = cartItems.find(item => item.id === productId);
-            if (item) {
-                item.quantity = newQuantity;
-                updateCart();
+            if (itemIndex !== -1) {
+                cartItems[itemIndex].quantity += change;
+                
+                // Remove item if quantity is 0
+                if (cartItems[itemIndex].quantity <= 0) {
+                    cartItems.splice(itemIndex, 1);
+                }
+                
+                updateCartUI();
             }
         }
 
         // Remove from cart
-        function removeFromCart(productId) {
-            cartItems = cartItems.filter(item => item.id !== productId);
-            updateCart();
-            showNotification('تم حذف المنتج من السلة');
-        }
-
-        // Update cart total
-        function updateCartTotal() {
-            const totalElement = document.getElementById('cartTotal');
-            const total = cartItems.reduce((sum, item) => {
-                const price = parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
-                return sum + (price * item.quantity);
-            }, 0);
-            
-            totalElement.textContent = `${total.toFixed(2)} جنيه`;
+        function removeFromCart(id) {
+            cartItems = cartItems.filter(item => item.id !== id);
+            updateCartUI();
         }
 
         // Show notification
         function showNotification(message) {
             // Create notification element
             const notification = document.createElement('div');
-            notification.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300';
+            notification.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300';
             notification.textContent = message;
             
+            // Add to DOM
             document.body.appendChild(notification);
             
             // Remove after 3 seconds
             setTimeout(() => {
-                notification.remove();
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
             }, 3000);
         }
 
-        // Update countdown timers
-        function updateCountdowns() {
-            offerProductsData.forEach(offer => {
-                const countdownElement = document.getElementById(`countdown-${offer.id}`);
-                const gridCountdownElement = document.getElementById(`countdown-grid-${offer.id}`);
-                
-                if (countdownElement) {
-                    countdownElement.innerHTML = formatCountdown(offer.endTime);
-                }
-                
-                if (gridCountdownElement) {
-                    gridCountdownElement.innerHTML = formatCountdown(offer.endTime);
-                }
-            });
+        // Open customer modal
+        function openCustomerModal() {
+            document.getElementById('customerModal').classList.add('open');
         }
 
-        // Open/close cart
-        function openCart() {
-            document.getElementById('cartOverlay').classList.add('open');
-            document.getElementById('cartSidebar').classList.add('open');
+        // Close customer modal
+        function closeCustomerModal() {
+            document.getElementById('customerModal').classList.remove('open');
         }
 
-        function closeCart() {
-            document.getElementById('cartOverlay').classList.remove('open');
-            document.getElementById('cartSidebar').classList.remove('open');
-        }
-
-        // Checkout
-        function checkout() {
-            if (cartItems.length === 0) return;
+        // Submit customer data
+        function submitCustomerData() {
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const address = document.getElementById('customerAddress').value.trim();
+            const location = document.getElementById('customerLocation').value.trim();
+            const errorMessage = document.getElementById('customerErrorMessage');
+            const errorText = document.getElementById('customerErrorText');
             
-            const total = cartItems.reduce((sum, item) => {
-                const price = parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
-                return sum + (price * item.quantity);
-            }, 0);
+            // Validate required fields
+            if (!name || !phone || !address) {
+                errorMessage.classList.remove('hidden');
+                errorText.textContent = 'يرجى ملء جميع الحقول الإلزامية';
+                return;
+            }
             
-            const order = {
-                id: `ORD-${Date.now()}`,
-                items: [...cartItems],
-                totalCost: total,
-                date: new Date().toLocaleDateString('ar-EG')
+            // Validate phone number (basic validation)
+            if (!/^01[0-9]{9}$/.test(phone)) {
+                errorMessage.classList.remove('hidden');
+                errorText.textContent = 'يرجى إدخال رقم موبايل صحيح (يبدأ بـ 01)';
+                return;
+            }
+            
+            // Create order data
+            const orderData = {
+                customer: {
+                    name,
+                    phone,
+                    address,
+                    location: location || 'غير محدد'
+                },
+                items: cartItems,
+                total: cartItems.reduce((sum, item) => {
+                    const priceValue = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                    return sum + (priceValue * item.quantity);
+                }, 0).toFixed(2),
+                date: new Date().toLocaleString('ar-EG')
             };
             
-            orders.push(order);
+            // Save order to stats
+            orders.push(orderData);
+            saveStats();
+            
+            // Create WhatsApp message
+            let message = `طلب جديد من متجر منفذ أمان فرع طوخ\n\n`;
+            message += `بيانات العميل:\n`;
+            message += `الاسم: ${name}\n`;
+            message += `رقم الموبايل: ${phone}\n`;
+            message += `العنوان: ${address}\n`;
+            if (location) {
+                message += `الموقع: ${location}\n`;
+            }
+            message += `\nالمنتجات المطلوبة:\n`;
+            
+            cartItems.forEach(item => {
+                message += `- ${item.name} (${item.quantity} × ${item.price})\n`;
+            });
+            
+            message += `\nالإجمالي: ${orderData.total} جنيه\n`;
+            message += `تاريخ الطلب: ${orderData.date}`;
+            
+            // Open WhatsApp with message
+            const whatsappURL = `https://wa.me/201030566078?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+            
+            // Clear cart
             cartItems = [];
-            updateCart();
-            closeCart();
-            showNotification('تم إتمام طلبك بنجاح!');
+            updateCartUI();
             
-            // Update stats
-            updateOrderStats();
-        }
-
-        // Update order stats
-        function updateOrderStats() {
-            const totalOrders = document.getElementById('totalOrders');
-            const totalRevenue = document.getElementById('totalRevenue');
-            const topProducts = document.getElementById('topProducts');
-            
-            totalOrders.textContent = orders.length;
-            
-            const revenue = orders.reduce((sum, order) => sum + order.totalCost, 0);
-            totalRevenue.textContent = `${revenue.toFixed(2)} جنيه`;
-            
-            // Calculate top products
-            const productCounts = orders
-                .flatMap(order => order.items)
-                .reduce((acc, item) => {
-                    acc[item.name] = (acc[item.name] || 0) + item.quantity;
-                    return acc;
-                }, {});
-            
-            const topProductsList = Object.entries(productCounts)
-                .sort(([, a], [, b]) => b - a)
-                .slice(0, 5);
-            
-            if (topProductsList.length > 0) {
-                let productsHTML = '';
-                topProductsList.forEach(([name, count]) => {
-                    productsHTML += `
-                        <li class="flex justify-between items-center bg-gray-100 p-3 rounded-md">
-                            <span class="font-semibold text-gray-700">${name}</span>
-                            <span class="font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full text-sm">${count} مرات</span>
-                        </li>
-                    `;
-                });
-                topProducts.innerHTML = productsHTML;
-            } else {
-                topProducts.innerHTML = '<p class="text-center text-gray-500">لا توجد طلبات مكتملة لعرض الإحصائيات.</p>';
-            }
-        }
-
-        // Login functions
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.add('open');
-            document.getElementById('passwordInput').value = '';
-            document.getElementById('errorMessage').classList.add('hidden');
-            document.getElementById('passwordInput').focus();
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.remove('open');
-        }
-
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('passwordInput');
-            const eyeIcon = document.getElementById('eyeIcon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.className = 'fas fa-eye-slash';
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.className = 'fas fa-eye';
-            }
-        }
-
-        function attemptLogin() {
-            const passwordInput = document.getElementById('passwordInput');
-            const errorMessage = document.getElementById('errorMessage');
-            const errorText = document.getElementById('errorText');
-            const password = passwordInput.value.trim();
-            
-            if (password === '') {
-                errorText.textContent = 'يرجى إدخال كلمة المرور';
-                errorMessage.classList.remove('hidden');
-                passwordInput.classList.add('error-shake');
-                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
-                return;
-            }
-            
-            if (password === ADMIN_PASSWORD) {
-                isAuthenticated = true;
-                closeLoginModal();
-                openStatsModal();
-                showNotification('تم تسجيل الدخول بنجاح');
-            } else {
-                errorText.textContent = 'كلمة المرور غير صحيحة';
-                errorMessage.classList.remove('hidden');
-                passwordInput.classList.add('error-shake');
-                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        }
-
-        // Clear statistics functions
-        function openConfirmModal() {
-            document.getElementById('confirmModal').classList.add('open');
-            document.getElementById('confirmPasswordInput').value = '';
-            document.getElementById('confirmErrorMessage').classList.add('hidden');
-            document.getElementById('confirmPasswordInput').focus();
-            document.getElementById('confirmClearBtn').disabled = true;
-        }
-
-        function closeConfirmModal() {
-            document.getElementById('confirmModal').classList.remove('open');
-        }
-
-        function toggleConfirmPasswordVisibility() {
-            const passwordInput = document.getElementById('confirmPasswordInput');
-            const eyeIcon = document.getElementById('confirmEyeIcon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.className = 'fas fa-eye-slash';
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.className = 'fas fa-eye';
-            }
-        }
-
-        function validateConfirmPassword() {
-            const passwordInput = document.getElementById('confirmPasswordInput');
-            const errorMessage = document.getElementById('confirmErrorMessage');
-            const errorText = document.getElementById('confirmErrorText');
-            const confirmBtn = document.getElementById('confirmClearBtn');
-            const password = passwordInput.value.trim();
-            
-            if (password === '') {
-                errorText.textContent = 'يرجى إدخال كلمة مرور التأكيد';
-                errorMessage.classList.remove('hidden');
-                passwordInput.classList.add('error-shake');
-                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
-                confirmBtn.disabled = true;
-                return false;
-            }
-            
-            if (password === CLEAR_PASSWORD) {
-                errorMessage.classList.add('hidden');
-                confirmBtn.disabled = false;
-                return true;
-            } else {
-                errorText.textContent = 'كلمة مرور التأكيد غير صحيحة';
-                errorMessage.classList.remove('hidden');
-                passwordInput.classList.add('error-shake');
-                setTimeout(() => passwordInput.classList.remove('error-shake'), 500);
-                confirmBtn.disabled = true;
-                return false;
-            }
-        }
-
-        function clearAllStatistics() {
-            // Clear all orders
-            orders = [];
-            
-            // Update the display
-            updateOrderStats();
-            
-            // Close confirmation modal
-            closeConfirmModal();
+            // Close modal
+            closeCustomerModal();
             
             // Show success notification
-            showNotification('تم مسح جميع الإحصائيات بنجاح');
+            showNotification('تم إرسال طلبك بنجاح!');
         }
 
-        // Open/close stats modal
-        function openStatsModal() {
+        // Save stats to localStorage
+        function saveStats() {
+            localStorage.setItem('aman_orders', JSON.stringify(orders));
+        }
+
+        // Load stats from localStorage
+        function loadStats() {
+            const savedOrders = localStorage.getItem('aman_orders');
+            if (savedOrders) {
+                orders = JSON.parse(savedOrders);
+            }
+        }
+
+        // Show stats modal
+        function showStatsModal() {
             if (!isAuthenticated) {
-                openLoginModal();
+                document.getElementById('loginModal').classList.add('open');
                 return;
             }
             
+            // Calculate stats
+            const totalOrders = orders.length;
+            const totalRevenue = orders.reduce((sum, order) => sum + parseFloat(order.total), 0).toFixed(2);
+            
+            // Count product sales
+            const productSales = {};
+            orders.forEach(order => {
+                order.items.forEach(item => {
+                    if (!productSales[item.name]) {
+                        productSales[item.name] = 0;
+                    }
+                    productSales[item.name] += item.quantity;
+                });
+            });
+            
+            // Sort products by sales
+            const sortedProducts = Object.entries(productSales)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+            
+            // Update UI
+            document.getElementById('totalOrders').textContent = totalOrders;
+            document.getElementById('totalRevenue').textContent = `${totalRevenue} جنيه`;
+            
+            let topProductsHTML = '';
+            sortedProducts.forEach(([name, quantity], index) => {
+                topProductsHTML += `
+                    <li class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">${index + 1}</span>
+                            <span class="font-medium">${name}</span>
+                        </div>
+                        <span class="text-blue-600 font-bold">${quantity} قطعة</span>
+                    </li>
+                `;
+            });
+            
+            document.getElementById('topProducts').innerHTML = topProductsHTML || '<li class="text-center text-gray-500">لا توجد بيانات</li>';
+            
+            // Show modal
             document.getElementById('statsModal').classList.add('open');
-            updateOrderStats();
         }
 
+        // Close stats modal
         function closeStatsModal() {
             document.getElementById('statsModal').classList.remove('open');
         }
 
-        // Scroll to top functionality
-        function initScrollToTop() {
-            const scrollBtn = document.getElementById('scrollToTopBtn');
+        // Login to stats
+        function loginToStats() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
             
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollBtn.classList.add('visible');
+            if (password === ADMIN_PASSWORD) {
+                isAuthenticated = true;
+                document.getElementById('loginModal').classList.remove('open');
+                document.getElementById('passwordInput').value = '';
+                errorMessage.classList.add('hidden');
+                showStatsModal();
+            } else {
+                errorMessage.classList.remove('hidden');
+                document.getElementById('passwordInput').classList.add('error-shake');
+                setTimeout(() => {
+                    document.getElementById('passwordInput').classList.remove('error-shake');
+                }, 500);
+            }
+        }
+
+        // Close login modal
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('open');
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+        // Show confirm clear stats modal
+        function showConfirmClearModal() {
+            document.getElementById('confirmModal').classList.add('open');
+        }
+
+        // Close confirm modal
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('open');
+            document.getElementById('confirmPasswordInput').value = '';
+            document.getElementById('confirmErrorMessage').classList.add('hidden');
+            document.getElementById('confirmClearBtn').disabled = true;
+        }
+
+        // Clear stats
+        function clearStats() {
+            const password = document.getElementById('confirmPasswordInput').value;
+            const errorMessage = document.getElementById('confirmErrorMessage');
+            
+            if (password === CLEAR_PASSWORD) {
+                orders = [];
+                saveStats();
+                closeConfirmModal();
+                closeStatsModal();
+                showStatsModal(); // Refresh stats modal
+                showNotification('تم مسح الإحصائيات بنجاح');
+            } else {
+                errorMessage.classList.remove('hidden');
+                document.getElementById('confirmPasswordInput').classList.add('error-shake');
+                setTimeout(() => {
+                    document.getElementById('confirmPasswordInput').classList.remove('error-shake');
+                }, 500);
+            }
+        }
+
+        // Toggle password visibility
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Initialize visitor count
+        function initVisitorCount() {
+            let count = localStorage.getItem('aman_visitor_count') || 1234;
+            count = parseInt(count) + 1;
+            localStorage.setItem('aman_visitor_count', count);
+            document.getElementById('visitorCount').textContent = count.toLocaleString('ar-EG');
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize components
+            initFeaturedCarousel();
+            initOffersGrid();
+            initProductsGrid();
+            initCategoryFilter();
+            updateCartUI();
+            loadStats();
+            initVisitorCount();
+            
+            // Set up event listeners
+            document.getElementById('prevBtn').addEventListener('click', prevSlide);
+            document.getElementById('nextBtn').addEventListener('click', nextSlide);
+            document.getElementById('toggleOffersBtn').addEventListener('click', toggleShowAllOffers);
+            
+            // Cart functionality
+            document.getElementById('cartBtn').addEventListener('click', function() {
+                if (cartItems.length > 0) {
+                    openCustomerModal();
                 } else {
-                    scrollBtn.classList.remove('visible');
+                    showNotification('سلتك فارغة حالياً');
                 }
             });
             
-            scrollBtn.addEventListener('click', () => {
+            document.getElementById('closeCustomerBtn').addEventListener('click', closeCustomerModal);
+            document.getElementById('cancelCustomerBtn').addEventListener('click', closeCustomerModal);
+            document.getElementById('submitCustomerBtn').addEventListener('click', submitCustomerData);
+            
+            // Stats functionality
+            document.getElementById('statsBtn').addEventListener('click', showStatsModal);
+            document.getElementById('closeStatsBtn').addEventListener('click', closeStatsModal);
+            document.getElementById('closeStatsBtn2').addEventListener('click', closeStatsModal);
+            document.getElementById('clearStatsBtn').addEventListener('click', showConfirmClearModal);
+            
+            // Login functionality
+            document.getElementById('loginBtn').addEventListener('click', loginToStats);
+            document.getElementById('cancelLoginBtn').addEventListener('click', closeLoginModal);
+            document.getElementById('closeLoginBtn').addEventListener('click', closeLoginModal);
+            
+            // Confirm clear functionality
+            document.getElementById('confirmClearBtn').addEventListener('click', clearStats);
+            document.getElementById('cancelConfirmBtn').addEventListener('click', closeConfirmModal);
+            document.getElementById('closeConfirmBtn').addEventListener('click', closeConfirmModal);
+            
+            // Password toggle functionality
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                togglePassword('passwordInput', 'eyeIcon');
+            });
+            
+            document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+                togglePassword('confirmPasswordInput', 'confirmEyeIcon');
+            });
+            
+            // Enable confirm button when password is entered
+            document.getElementById('confirmPasswordInput').addEventListener('input', function() {
+                document.getElementById('confirmClearBtn').disabled = this.value.length === 0;
+            });
+            
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                searchQuery = e.target.value;
+                initProductsGrid();
+            });
+            
+            // Scroll to top functionality
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
             });
-        }
-
-        // Search functionality
-        function handleSearch(event) {
-            searchQuery = event.target.value;
-            initProductsGrid();
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            initCarousel();
-            initOffersGrid();
-            initCategoryFilter();
-            initProductsGrid();
-            initScrollToTop();
             
-            // Update countdowns every second
-            setInterval(updateCountdowns, 1000);
-            
-            // Simulate visitor count
-            const visitorCount = document.getElementById('visitorCount');
-            let count = 1234;
-            setInterval(() => {
-                count += Math.floor(Math.random() * 3);
-                visitorCount.textContent = count.toLocaleString('ar-EG');
-            }, 30000);
-            
-            // Event listeners
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                stopAutoRotation();
-                goToFeaturedOffer((currentFeaturedIndex - 1 + offerProductsData.length) % offerProductsData.length);
-                startAutoRotation();
-            });
-            
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                stopAutoRotation();
-                goToFeaturedOffer((currentFeaturedIndex + 1) % offerProductsData.length);
-                startAutoRotation();
-            });
-            
-            document.getElementById('toggleOffersBtn').addEventListener('click', toggleOffers);
-            
-            // Cart events
-            document.getElementById('cartBtn').addEventListener('click', openCart);
-            document.getElementById('closeCartBtn').addEventListener('click', closeCart);
-            document.getElementById('cartOverlay').addEventListener('click', closeCart);
-            document.getElementById('checkoutBtn').addEventListener('click', checkout);
-            
-            // Login modal events
-            document.getElementById('statsBtn').addEventListener('click', openStatsModal);
-            document.getElementById('closeLoginBtn').addEventListener('click', closeLoginModal);
-            document.getElementById('cancelLoginBtn').addEventListener('click', closeLoginModal);
-            document.getElementById('loginBtn').addEventListener('click', attemptLogin);
-            document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
-            
-            // Confirmation modal events
-            document.getElementById('clearStatsBtn').addEventListener('click', openConfirmModal);
-            document.getElementById('closeConfirmBtn').addEventListener('click', closeConfirmModal);
-            document.getElementById('cancelConfirmBtn').addEventListener('click', closeConfirmModal);
-            document.getElementById('confirmClearBtn').addEventListener('click', clearAllStatistics);
-            document.getElementById('toggleConfirmPassword').addEventListener('click', toggleConfirmPasswordVisibility);
-            
-            // Stats modal events
-            document.getElementById('closeStatsBtn').addEventListener('click', closeStatsModal);
-            document.getElementById('closeStatsBtn2').addEventListener('click', closeStatsModal);
-            
-            // Search event
-            document.getElementById('searchInput').addEventListener('input', handleSearch);
-            
-            // Enter key to submit login
-            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    attemptLogin();
-                }
-            });
-            
-            // Password validation for confirm modal
-            document.getElementById('confirmPasswordInput').addEventListener('input', validateConfirmPassword);
-            document.getElementById('confirmPasswordInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !document.getElementById('confirmClearBtn').disabled) {
-                    clearAllStatistics();
-                }
-            });
-            
-            // Close modals on overlay click
-            document.getElementById('loginModal').addEventListener('click', (e) => {
-                if (e.target.id === 'loginModal') {
-                    closeLoginModal();
-                }
-            });
-            
-            document.getElementById('confirmModal').addEventListener('click', (e) => {
-                if (e.target.id === 'confirmModal') {
-                    closeConfirmModal();
-                }
-            });
-            
-            // Pause auto-rotation on hover
-            const carousel = document.getElementById('featuredCarousel');
-            carousel.addEventListener('mouseenter', stopAutoRotation);
-            carousel.addEventListener('mouseleave', startAutoRotation);
+            // Update countdown timers
+            setInterval(function() {
+                document.querySelectorAll('.countdown').forEach(countdown => {
+                    const parent = countdown.closest('.offer-card, .carousel-item');
+                    if (parent) {
+                        const endTime = parent.dataset.endTime;
+                        if (endTime) {
+                            const countdownContainer = countdown.parentElement;
+                            countdownContainer.innerHTML = formatCountdown(endTime);
+                        }
+                    }
+                });
+            }, 1000);
         });
     </script>
 </body>
