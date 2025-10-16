@@ -1242,23 +1242,18 @@
             {id: 112, name: "جبنة تبارك 2.5كجم", oldPrice: "165.00 جنيه", newPrice: "155.00 جنيه", discount: "-10%", image: "https://www2.0zz0.com/2025/10/16/00/202500856.jpg", category: "dairy", endTime: "2025-10-31"}
         ];
 
+        // تعديل بيانات المنتجات لتشمل السعر الأصلي والسعر بعد الخصم
         const productsData = [
-            {id: 1, name: "تفاح أحمر", price: "35.99 جنيه/كجم", image: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=500&q=60", category: "fruits-vegetables"},
-            {id: 2, name: "خبز أسمر", price: "5.00 جنيه", image: "https://images.unsplash.com/photo-1509440159596-024908877212?w=500&q=60", category: "bakery"},
-            {id: 3, name: "حليب طازج", price: "28.50 جنيه", image: "https://images.unsplash.com/photo-1620189507195-68309c04c4d0?w=500&q=60", category: "dairy-eggs"},
-            {id: 4, name: "بيض", price: "90.00 جنيه/طبق", image: "https://images.unsplash.com/photo-1587486913049-53fc889c0cfc?w=500&q=60", category: "dairy-eggs"},
-            {id: 5, name: "موز", price: "25.00 جنيه/كجم", image: "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=500&q=60", category: "fruits-vegetables"},
-            {id: 6, name: "مياه معدنية", price: "4.00 جنيه", image: "https://images.unsplash.com/photo-1553564235-5394236b2d1c?w=500&q=60", category: "drinks"},
-            {id: 7, name: "كرواسان", price: "15.00 جنيه", image: "https://images.unsplash.com/photo-1621939512443-48e2439c2859?w=500&q=60", category: "bakery"},
-            {id: 8, name: "دجاج كامل", price: "150.00 جنيه", image: "https://images.unsplash.com/photo-1598103442345-0c41031828bf?w=500&q=60", category: "meat"},
-            {id: 9, name: "برتقال", price: "18.00 جنيه/كجم", image: "https://images.unsplash.com/photo-1547514701-42782101795e?w=500&q=60", category: "fruits-vegetables"},
-            {id: 10, name: "خس", price: "8.00 جنيه", image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=500&q=60", category: "fruits-vegetables"},
-            {id: 11, name: "زبادي", price: "12.00 جنيه", image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=60", category: "dairy-eggs"},
-            {id: 12, name: "عصير برتقال", price: "20.00 جنيه", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500&q=60", category: "drinks"},
-            {id: 13, name: "خبز فرنسي", price: "8.00 جنيه", image: "https://images.unsplash.com/photo-1509440159596-024908877212?w=500&q=60", category: "bakery"},
-            {id: 14, name: "لحم بقري", price: "250.00 جنيه/كجم", image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=500&q=60", category: "meat"},
-            {id: 15, name: "فراولة", price: "45.00 جنيه/كجم", image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=500&q=60", category: "fruits-vegetables"},
-            {id: 16, name: "جبن شيدر", price: "80.00 جنيه", image: "https://images.unsplash.com/photo-1486477358786-1a3670a50b9f?w=500&q=60", category: "dairy-eggs"}
+            {id: 1, name: "بلوبيف مستورد", oldPrice: "120.00 جنيه", newPrice: "85.00 جنيه", discount: "-30%", image: "https://www2.0zz0.com/2025/10/16/01/248308685.jpeg", category: "meat"}, 
+            {id: 2, name: "لانشون فراخ تركى", oldPrice: "50.00 جنيه", newPrice: "35.00 جنيه", discount: "-15%", image: "https://www2.0zz0.com/2025/10/16/01/690424989.jpeg", category: "meat"}, 
+            {id: 3, name: "5 اكياس مكرونة لمتنا 400جم", oldPrice: "70.00 جنيه", newPrice: "55.00 جنيه", discount: "-20%", image: "https://www2.0zz0.com/2025/10/16/02/308951675.jpg", category: "Affair"}, 
+            {id: 4, name: "بارليكو نسكافية بلاك", oldPrice: "100.00 جنيه", newPrice: "50.00 جنيه", discount: "-50%", image: "https://www2.0zz0.com/2025/10/16/02/121211084.jpg", category: "drinks"}, 
+            {id: 5, name: "كيس توفي", oldPrice: "15.00 جنيه", newPrice: "10.00 جنيه", discount: "-35%", image: "https://www2.0zz0.com/2025/10/16/02/620159258.jpg", category: "sweet"}, 
+            {id: 6, name: "بسكوت تيمبو 12ق", oldPrice: "60.00 جنيه", newPrice: "35.00 جنيه", discount: "-40%", image: "https://www2.0zz0.com/2025/10/16/02/551544472.jpg", category: "sweet"}, 
+            {id: 7, name: "2 عصير بشاير 1 لتر", oldPrice: "60.00 جنيه", newPrice: "45.00 جنيه", discount: "-25%", image: "https://www2.0zz0.com/2025/10/16/02/813295079.jpg", category: "Juices"}, 
+            {id: 8, name: "5 عصير 200جم انواع", oldPrice: "25.00 جنيه", newPrice: "20.00 جنيه", discount: "-15%", image: "https://www2.0zz0.com/2025/10/16/02/455828581.png", category: "Juices"}, 
+            {id: 9, name: "كسر بسكوت شاتو 500جم", oldPrice: "55.00 جنيه", newPrice: "45.00 جنيه", discount: "-20%", image: "https://www2.0zz0.com/2025/10/16/03/826633794.jpg", category: "sweet"}, 
+
         ];
 
         // State variables
@@ -1274,11 +1269,12 @@
 
         // Category translations
         const categoryTranslations = {
-            'fruits-vegetables': 'فواكه وخضروات',
-            'bakery': 'مخبوزات',
+            'meat': 'لحوم',
             'dairy-eggs': 'ألبان وبيض',
+            'Affair': 'علافة',
+            'Juices': 'عصائر',
             'drinks': 'مشروبات',
-            'meat': 'لحوم'
+            'sweet': 'حلوى'
         };
 
         // Helper functions
@@ -1502,12 +1498,17 @@
             `;
         }
 
-        // Create product card
+        // Create product card - معدل لعرض السعرين
         function createProductCard(product) {
             return `
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                     <div class="relative">
                         <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                        ${product.discount ? `
+                            <div class="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-lg font-bold pulse-badge">
+                                ${product.discount}
+                            </div>
+                        ` : ''}
                         <div class="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">
                             ${categoryTranslations[product.category] || product.category}
                         </div>
@@ -1515,11 +1516,16 @@
                     <div class="p-4">
                         <h3 class="text-lg font-bold mb-2">${product.name}</h3>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-xl font-bold text-blue-600">${product.price}</span>
+                            ${product.oldPrice ? `
+                                <span class="text-lg line-through text-gray-500">${product.oldPrice}</span>
+                                <span class="text-xl font-bold text-blue-600">${product.newPrice}</span>
+                            ` : `
+                                <span class="text-xl font-bold text-blue-600">${product.newPrice}</span>
+                            `}
                         </div>
                         <button 
                             class="w-full bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors"
-                            onclick="addToCart(${product.id}, '${product.name}', '${product.price}', '${product.image}')"
+                            onclick="addToCart(${product.id}, '${product.name}', '${product.newPrice}', '${product.image}')"
                         >
                             <i class="fas fa-cart-plus ml-2"></i>
                             أضف للسلة
