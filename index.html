@@ -1130,6 +1130,47 @@
             opacity: 1;
         }
         
+        /* Footer social icons */
+        .footer-social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .footer-social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-facebook {
+            background: linear-gradient(135deg, #1877f2, #0c5fb8);
+        }
+        
+        .footer-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+        
+        .footer-instagram {
+            background: linear-gradient(135deg, #e1306c, #c13584);
+        }
+        
+        .footer-youtube {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .logo-text {
@@ -1497,7 +1538,7 @@
                     </div>
                     <div class="contact-text">
                         <span class="contact-label">فيس بوك</span>
-                        <span class="contact-value">https://www.facebook.com/profile.php?id=100085606703584</span>
+                        <span class="contact-value">تابعنا على فيسبوك</span>
                     </div>
                 </a>
                 
@@ -1508,7 +1549,7 @@
                     </div>
                     <div class="contact-text">
                         <span class="contact-label">واتساب</span>
-                        <span class="contact-value">01009002381</span>
+                        <span class="contact-value">تواصل معنا</span>
                     </div>
                 </a>
                 
@@ -1519,7 +1560,7 @@
                     </div>
                     <div class="contact-text">
                         <span class="contact-label">الهاتف</span>
-                        <span class="contact-value">010 09002381</span>
+                        <span class="contact-value">اتصل بنا</span>
                     </div>
                 </a>
                 
@@ -1586,6 +1627,24 @@
                     <span class="text-gray-400">عدد الزوار:</span>
                     <span id="visitorCount" class="text-white font-bold tracking-wider mr-2">1,234</span>
                 </p>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons -->
+        <div class="container mx-auto max-w-7xl px-4 pb-6">
+            <div class="footer-social-icons">
+                <a href="https://www.facebook.com/aman.toukh" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://wa.me/201009002381" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/aman.toukh" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/aman.toukh" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-youtube">
+                    <i class="fab fa-youtube"></i>
+                </a>
             </div>
         </div>
     </footer>
