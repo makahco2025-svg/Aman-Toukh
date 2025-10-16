@@ -872,6 +872,18 @@
             transform: scale(1.02);
         }
         
+        /* Hide elements during search */
+        .search-mode .offers-section,
+        .search-mode .contact-section,
+        .search-mode .location-section,
+        .search-mode .products-section {
+            display: none !important;
+        }
+        
+        .search-mode .search-results {
+            display: block !important;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .logo-text {
@@ -1051,7 +1063,7 @@
             </div>
 
             <!-- Professional Offers Section -->
-            <section id="offersSection" class="mb-16">
+            <section id="offersSection" class="offers-section mb-16">
                 <!-- Hero Section with Featured Offer Carousel -->
                 <div class="gradient-animation rounded-3xl p-8 mb-12 text-white relative overflow-hidden">
                     <div class="absolute inset-0 bg-black/20"></div>
@@ -1113,7 +1125,7 @@
             </section>
 
             <!-- Contact Us Section -->
-            <section class="mb-16">
+            <section id="contactSection" class="contact-section mb-16">
                 <div class="text-center mb-8">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">تواصل معنا</h2>
                     <p class="text-lg text-gray-600">نحن هنا لخدمتك! تواصل معنا عبر أي من الوسائل التالية</p>
@@ -1167,7 +1179,7 @@
             </section>
 
             <!-- Location Section -->
-            <section id="location" class="mb-16">
+            <section id="locationSection" class="location-section mb-16">
                 <div class="location-info">
                     <div class="location-info-content text-center">
                         <i class="fas fa-map-marker-alt location-icon-large"></i>
@@ -1310,7 +1322,7 @@
             </div>
 
             <!-- Products Section -->
-            <section id="productsSection" class="mb-16">
+            <section id="productsSection" class="products-section mb-16">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">منتجاتنا</h2>
                 
                 <!-- Products Grid -->
@@ -2126,7 +2138,7 @@
             window.open(mapUrl, '_blank');
         }
 
-        // Perform search function - FIXED
+        // Perform search function - ENHANCED
         function performSearch() {
             const searchInput = document.getElementById('searchInput');
             searchQuery = searchInput.value.toLowerCase().trim();
@@ -2140,6 +2152,9 @@
             
             // Enter search mode
             isSearchMode = true;
+            
+            // Add search-mode class to body
+            document.body.classList.add('search-mode');
             
             // Search in both offers and products
             const matchingOffers = offerProductsData.filter(offer => 
@@ -2241,11 +2256,14 @@
             }
         }
 
-        // Clear search function - FIXED
+        // Clear search function - ENHANCED
         function clearSearch() {
             document.getElementById('searchInput').value = '';
             searchQuery = '';
             isSearchMode = false;
+            
+            // Remove search-mode class from body
+            document.body.classList.remove('search-mode');
             
             // Hide search results on both pages
             document.getElementById('searchResults').classList.remove('active');
