@@ -58,11 +58,6 @@
             }
         }
         
-        /* Countdown timer */
-        .countdown {
-            font-variant-numeric: tabular-nums;
-        }
-        
         /* Shine effect */
         .shine-effect {
             position: relative;
@@ -127,7 +122,7 @@
             scroll-behavior: smooth;
         }
         
-        /* Logo styling - محسّن لعرض أفضل */
+        /* Logo styling */
         .logo-container {
             display: flex;
             align-items: center;
@@ -337,48 +332,6 @@
             pointer-events: all;
         }
         
-        /* Modal styles */
-        .modal {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-in-out;
-        }
-        
-        .modal.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        /* Login modal styles */
-        .login-modal {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-in-out;
-        }
-        
-        .login-modal.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .password-input {
-            position: relative;
-        }
-        
-        .password-toggle {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6b7280;
-            transition: color 0.3s ease;
-        }
-        
-        .password-toggle:hover {
-            color: #3b82f6;
-        }
-        
         /* Contact section horizontal layout */
         .contact-horizontal {
             display: flex;
@@ -470,110 +423,175 @@
             animation: pulse 3s ease-in-out infinite;
         }
         
-        /* Error message animation */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        /* Footer social icons */
+        .footer-social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
         }
         
-        .error-shake {
-            animation: shake 0.5s ease-in-out;
-        }
-        
-        /* Confirmation modal styles */
-        .confirm-modal {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-in-out;
-        }
-        
-        .confirm-modal.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        /* Danger button styles */
-        .danger-btn {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+        .footer-social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
             transition: all 0.3s ease;
         }
         
-        .danger-btn:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        .footer-social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
-        .danger-btn:disabled {
-            background: linear-gradient(135deg, #9ca3af, #6b7280);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .footer-facebook {
+            background: linear-gradient(135deg, #1877f2, #0c5fb8);
         }
         
-        /* Security badge styles */
-        .security-badge {
+        .footer-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+        
+        .footer-instagram {
+            background: linear-gradient(135deg, #e1306c, #c13584);
+        }
+        
+        .footer-youtube {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+        }
+        
+        /* Page navigation */
+        .page-nav {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+        
+        .nav-btn {
+            background: transparent;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: white;
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* Page sections */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Product card styles */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .new-price {
+            color: #ef4444;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #78350f;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
+            gap: 8px;
         }
         
-        /* Customer info modal styles */
-        .customer-modal {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-in-out;
-        }
-        
-        .customer-modal.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .required-field::after {
-            content: " *";
-            color: #ef4444;
-        }
-        
-        /* Location button styles */
-        .location-btn-custom {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .location-btn-custom:hover {
-            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        .add-to-cart-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-        
-        .location-btn-custom:disabled {
-            background: linear-gradient(135deg, #9ca3af, #6b7280);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .location-loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
         
         /* Category navigation bar styles */
@@ -675,112 +693,6 @@
             background-color: #eff6ff;
         }
         
-        /* Product card styles */
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-        
-        .discount-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            z-index: 10;
-        }
-        
-        .old-price {
-            text-decoration: line-through;
-            color: #9ca3af;
-            font-size: 14px;
-        }
-        
-        .new-price {
-            color: #ef4444;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .add-to-cart-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .add-to-cart-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            transform: translateY(-2px);
-        }
-        
-        /* Loading spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        /* Search results section */
-        .search-results {
-            display: none;
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-        
-        .search-results.active {
-            display: block;
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #6b7280;
-        }
-        
-        .no-results i {
-            font-size: 48px;
-            margin-bottom: 16px;
-            color: #d1d5db;
-        }
-        
         /* Cart item styles */
         .cart-item {
             background: white;
@@ -846,266 +758,82 @@
             background: linear-gradient(135deg, #dc2626, #b91c1c);
         }
         
-        /* Enhanced Image Modal Styles */
-        .image-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            padding: 20px;
-        }
-        
-        .image-modal.open {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .image-modal-content {
-            position: relative;
-            max-width: 95%;
-            max-height: 95%;
-            display: flex;
-            gap: 20px;
-            animation: zoomIn 0.3s ease;
-        }
-        
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        
-        .modal-image-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        
-        .modal-image {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-        
-        .modal-thumbnails {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .modal-thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.3s ease;
-            opacity: 0.7;
-        }
-        
-        .modal-thumbnail:hover {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-        
-        .modal-thumbnail.active {
-            border-color: #3b82f6;
-            opacity: 1;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 32px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
-        }
-        
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-nav:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .modal-prev {
-            left: -70px;
-        }
-        
-        .modal-next {
-            right: -70px;
-        }
-        
-        .modal-product-info {
+        /* Search results section */
+        .search-results {
+            display: none;
             background: white;
             border-radius: 12px;
-            padding: 24px;
-            max-width: 400px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .modal-product-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #e5e7eb;
-        }
-        
-        .modal-price-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            padding: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
         
-        .modal-old-price {
-            font-size: 18px;
-            color: #9ca3af;
-            text-decoration: line-through;
+        .search-results.active {
+            display: block;
         }
         
-        .modal-new-price {
-            font-size: 28px;
-            font-weight: bold;
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+        
+        .no-results i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #d1d5db;
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Customer info modal styles */
+        .customer-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .customer-modal.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .required-field::after {
+            content: " *";
             color: #ef4444;
         }
         
-        .modal-discount-badge {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+        /* Location button styles */
+        .location-btn-custom {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
-        .modal-specifications {
-            margin-top: 24px;
-        }
-        
-        .modal-spec-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #374151;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .modal-spec-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .modal-spec-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 8px 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        
-        .modal-spec-item:last-child {
-            border-bottom: none;
-        }
-        
-        .modal-spec-icon {
-            color: #3b82f6;
-            font-size: 16px;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-        
-        .modal-spec-label {
-            font-weight: 600;
-            color: #6b7280;
-            min-width: 80px;
-            flex-shrink: 0;
-        }
-        
-        .modal-spec-value {
-            color: #1f2937;
-            flex: 1;
-        }
-        
-        .modal-add-to-cart {
-            width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
         }
         
-        .modal-add-to-cart:hover {
-            background: linear-gradient(135deg, #059669, #047857);
+        .location-btn-custom:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .location-btn-custom:disabled {
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         /* Zoom indicator */
@@ -1128,47 +856,6 @@
         
         .product-card:hover .zoom-indicator {
             opacity: 1;
-        }
-        
-        /* Footer social icons */
-        .footer-social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 16px;
-        }
-        
-        .footer-social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-social-icon:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .footer-facebook {
-            background: linear-gradient(135deg, #1877f2, #0c5fb8);
-        }
-        
-        .footer-whatsapp {
-            background: linear-gradient(135deg, #25d366, #128c7e);
-        }
-        
-        .footer-instagram {
-            background: linear-gradient(135deg, #e1306c, #c13584);
-        }
-        
-        .footer-youtube {
-            background: linear-gradient(135deg, #ff0000, #cc0000);
         }
         
         /* Responsive adjustments */
@@ -1236,40 +923,6 @@
             .category-nav {
                 top: 70px;
             }
-            
-            /* Modal responsive */
-            .image-modal-content {
-                flex-direction: column;
-                max-width: 100%;
-            }
-            
-            .modal-thumbnails {
-                flex-direction: row;
-                max-height: none;
-                max-width: 100%;
-                overflow-x: auto;
-                padding: 10px 0;
-            }
-            
-            .modal-thumbnail {
-                min-width: 60px;
-                width: 60px;
-                height: 60px;
-            }
-            
-            .modal-nav {
-                display: none;
-            }
-            
-            .modal-product-info {
-                max-width: 100%;
-                max-height: none;
-            }
-            
-            .modal-close {
-                top: -50px;
-                right: 10px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -1314,7 +967,6 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a href="/" class="logo-container">
-                        <!-- ============ مكان تغيير اللوجو ============ -->
                         <!-- اللوجو الأساسي -->
                         <img 
                             id="storeLogo"
@@ -1327,12 +979,11 @@
                         <div id="logoFallback" class="logo-fallback" style="display: none;">
                             <i class="fas fa-store"></i>
                         </div>
-                        <!-- =========================================== -->
                         <span class="logo-text">منفذ امان فرع طوخ</span>
                     </a>
                 </div>
 
-                <!-- Search Bar - Now visible on all screen sizes -->
+                <!-- Search Bar -->
                 <div class="flex-1 max-w-xl mx-4">
                     <div class="relative">
                         <input
@@ -1355,265 +1006,300 @@
         </div>
     </header>
 
-    <!-- Category Navigation Bar -->
-    <nav class="category-nav" id="categoryNav">
+    <!-- Page Navigation -->
+    <nav class="page-nav">
         <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <!-- Desktop Categories -->
-                <div class="desktop-categories flex items-center overflow-x-auto py-2">
-                    <a href="#all" class="category-item active" data-category="all">
-                        <i class="fas fa-th-large category-icon"></i>
-                        جميع المنتجات
-                    </a>
-                    <a href="#dairy" class="category-item" data-category="dairy">
-                        <i class="fas fa-cheese category-icon"></i>
-                        ألبان
-                    </a>
-                    <a href="#canned" class="category-item" data-category="canned">
-                        <i class="fas fa-box category-icon"></i>
-                        معلبات
-                    </a>
-                    <a href="#beverages" class="category-item" data-category="beverages">
-                        <i class="fas fa-coffee category-icon"></i>
-                        مشروبات
-                    </a>
-                    <a href="#sweet" class="category-item" data-category="sweet">
-                        <i class="fas fa-cookie category-icon"></i>
-                        حلويات
-                    </a>
-                    <a href="#Juices" class="category-item" data-category="Juices">
-                        <i class="fas fa-glass-water category-icon"></i>
-                        عصائر
-                    </a>
-                    <a href="#oil" class="category-item" data-category="oil">
-                        <i class="fas fa-oil-can category-icon"></i>
-                        زيوت
-                    </a>
-                    <a href="#dairy-eggs" class="category-item" data-category="dairy-eggs">
-                        <i class="fas fa-egg category-icon"></i>
-                        ألبان وبيض
-                    </a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" id="mobileCategoryBtn">
-                    <i class="fas fa-th-large"></i>
+            <div class="flex items-center justify-center gap-4 py-4">
+                <button class="nav-btn active" id="homeNavBtn" onclick="showPage('home')">
+                    <i class="fas fa-home ml-2"></i>
+                    الرئيسية
+                </button>
+                <button class="nav-btn" id="shopNavBtn" onclick="showPage('shop')">
+                    <i class="fas fa-shopping-bag ml-2"></i>
+                    المتجر
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Category Menu -->
-    <div class="mobile-category-menu" id="mobileCategoryMenu">
-        <a href="#all" class="mobile-category-item active" data-category="all">
-            <i class="fas fa-th-large ml-2"></i>
-            جميع المنتجات
-        </a>
-        <a href="#dairy" class="mobile-category-item" data-category="dairy">
-            <i class="fas fa-cheese ml-2"></i>
-            ألبان
-        </a>
-        <a href="#canned" class="mobile-category-item" data-category="canned">
-            <i class="fas fa-box ml-2"></i>
-            معلبات
-        </a>
-        <a href="#beverages" class="mobile-category-item" data-category="beverages">
-            <i class="fas fa-coffee ml-2"></i>
-            مشروبات
-        </a>
-        <a href="#sweet" class="mobile-category-item" data-category="sweet">
-            <i class="fas fa-cookie ml-2"></i>
-            حلويات
-        </a>
-        <a href="#Juices" class="mobile-category-item" data-category="Juices">
-            <i class="fas fa-glass-water ml-2"></i>
-            عصائر
-        </a>
-        <a href="#oil" class="mobile-category-item" data-category="oil">
-            <i class="fas fa-oil-can ml-2"></i>
-            زيوت
-        </a>
-        <a href="#dairy-eggs" class="mobile-category-item" data-category="dairy-eggs">
-            <i class="fas fa-egg ml-2"></i>
-            ألبان وبيض
-        </a>
-    </div>
-
-    <!-- Main Content -->
-    <main class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Search Results Section -->
-        <div id="searchResults" class="search-results">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">
-                <i class="fas fa-search ml-2"></i>
-                نتائج البحث: "<span id="searchTerm"></span>"
-            </h3>
-            <div id="searchResultsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Search results will be inserted here -->
-            </div>
-        </div>
-
-        <!-- Professional Offers Section -->
-        <section id="offersSection" class="mb-16">
-            <!-- Hero Section with Featured Offer Carousel -->
-            <div class="gradient-animation rounded-3xl p-8 mb-12 text-white relative overflow-hidden">
-                <div class="absolute inset-0 bg-black/20"></div>
-                <div class="relative z-10">
-                    <div class="text-center mb-8">
-                        <h1 class="text-4xl md:text-5xl font-bold mb-4 float-animation">
-                            <i class="fas fa-fire-flame-curved ml-3"></i>
-                            عروض حصرية
-                        </h1>
-                        <p class="text-xl opacity-90">خصومات محدودة لفترة وجيزة</p>
-                    </div>
-                    
-                    <!-- Featured Offer Carousel Container -->
-                    <div class="relative max-w-4xl mx-auto">
-                        <div id="featuredCarousel" class="relative">
-                            <!-- Carousel items will be inserted here by JavaScript -->
-                        </div>
-                        
-                        <!-- Carousel Indicators -->
-                        <div id="carouselIndicators" class="flex justify-center mt-6 gap-2">
-                            <!-- Indicators will be inserted here by JavaScript -->
-                        </div>
-                        
-                        <!-- Manual Navigation Buttons -->
-                        <button
-                            id="prevBtn"
-                            class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300"
-                            aria-label="العرض السابق"
-                        >
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <button
-                            id="nextBtn"
-                            class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300"
-                            aria-label="العرض التالي"
-                        >
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                    </div>
+    <!-- Home Page Section -->
+    <section id="homePage" class="page-section active">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Search Results Section -->
+            <div id="searchResults" class="search-results">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-search ml-2"></i>
+                    نتائج البحث: "<span id="searchTerm"></span>"
+                </h3>
+                <div id="searchResultsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Search results will be inserted here -->
                 </div>
             </div>
-            
-            <!-- Other Offers Grid -->
-            <div id="offers-grid" class="grid gap-6 offers-grid-3">
-                <!-- Offer cards will be inserted here by JavaScript -->
-            </div>
-            
-            <!-- View All Offers Button -->
-            <div class="text-center mt-12">
-                <button 
-                    id="toggleOffersBtn"
-                    class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl shine-effect"
-                >
-                    <i class="fas fa-chevron-down ml-2"></i>
-                    <span id="toggleText">عرض جميع العروض</span>
-                </button>
-            </div>
-        </section>
 
-        <!-- Products Section -->
-        <section id="productsSection" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">منتجاتنا</h2>
-            
-            <!-- Products Grid -->
-            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Product cards will be inserted here by JavaScript -->
-            </div>
-        </section>
+            <!-- Professional Offers Section -->
+            <section id="offersSection" class="mb-16">
+                <!-- Hero Section with Featured Offer Carousel -->
+                <div class="gradient-animation rounded-3xl p-8 mb-12 text-white relative overflow-hidden">
+                    <div class="absolute inset-0 bg-black/20"></div>
+                    <div class="relative z-10">
+                        <div class="text-center mb-8">
+                            <h1 class="text-4xl md:text-5xl font-bold mb-4 float-animation">
+                                <i class="fas fa-fire-flame-curved ml-3"></i>
+                                عروض حصرية
+                            </h1>
+                            <p class="text-xl opacity-90">خصومات محدودة لفترة وجيزة</p>
+                        </div>
+                        
+                        <!-- Featured Offer Carousel Container -->
+                        <div class="relative max-w-4xl mx-auto">
+                            <div id="featuredCarousel" class="relative">
+                                <!-- Carousel items will be inserted here by JavaScript -->
+                            </div>
+                            
+                            <!-- Carousel Indicators -->
+                            <div id="carouselIndicators" class="flex justify-center mt-6 gap-2">
+                                <!-- Indicators will be inserted here by JavaScript -->
+                            </div>
+                            
+                            <!-- Manual Navigation Buttons -->
+                            <button
+                                id="prevBtn"
+                                class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300"
+                                aria-label="العرض السابق"
+                            >
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <button
+                                id="nextBtn"
+                                class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300"
+                                aria-label="العرض التالي"
+                            >
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other Offers Grid -->
+                <div id="offers-grid" class="grid gap-6 offers-grid-3">
+                    <!-- Offer cards will be inserted here by JavaScript -->
+                </div>
+                
+                <!-- View All Offers Button -->
+                <div class="text-center mt-12">
+                    <button 
+                        id="toggleOffersBtn"
+                        class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl shine-effect"
+                        onclick="showPage('shop')"
+                    >
+                        <i class="fas fa-shopping-bag ml-2"></i>
+                        <span>عرض جميع المنتجات</span>
+                    </button>
+                </div>
+            </section>
 
-        <!-- Contact Us Section - Horizontal Layout -->
-        <section class="mb-16">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">تواصل معنا</h2>
-                <p class="text-lg text-gray-600">نحن هنا لخدمتك! تواصل معنا عبر أي من الوسائل التالية</p>
-            </div>
-            
-            <div class="contact-horizontal">
-                <!-- Facebook -->
-                <a href="https://www.facebook.com/aman.toukh" target="_blank" rel="noopener noreferrer" class="contact-item">
-                    <div class="contact-icon facebook-btn">
-                        <i class="fab fa-facebook-f"></i>
-                    </div>
-                    <div class="contact-text">
-                        <span class="contact-label">فيس بوك</span>
-                        <span class="contact-value">تابعنا على فيسبوك</span>
-                    </div>
-                </a>
+            <!-- Contact Us Section -->
+            <section class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">تواصل معنا</h2>
+                    <p class="text-lg text-gray-600">نحن هنا لخدمتك! تواصل معنا عبر أي من الوسائل التالية</p>
+                </div>
                 
-                <!-- WhatsApp -->
-                <a href="https://wa.me/201009002381" target="_blank" rel="noopener noreferrer" class="contact-item">
-                    <div class="contact-icon whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div class="contact-text">
-                        <span class="contact-label">واتساب</span>
-                        <span class="contact-value">تواصل معنا</span>
-                    </div>
-                </a>
-                
-                <!-- Phone -->
-                <a href="tel:+201009002381" class="contact-item">
-                    <div class="contact-icon phone-btn">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div class="contact-text">
-                        <span class="contact-label">الهاتف</span>
-                        <span class="contact-value">اتصل بنا</span>
-                    </div>
-                </a>
-                
-                <!-- Location -->
-                <a href="#location" class="contact-item">
-                    <div class="contact-icon location-btn">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contact-text">
-                        <span class="contact-label">الموقع</span>
-                        <span class="contact-value">طوخ، القليوبية</span>
-                    </div>
-                </a>
-            </div>
-        </section>
+                <div class="contact-horizontal">
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/aman.toukh" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <div class="contact-icon facebook-btn">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="contact-text">
+                            <span class="contact-label">فيس بوك</span>
+                            <span class="contact-value">تابعنا على فيسبوك</span>
+                        </div>
+                    </a>
+                    
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/201009002381" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <div class="contact-icon whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-text">
+                            <span class="contact-label">واتساب</span>
+                            <span class="contact-value">تواصل معنا</span>
+                        </div>
+                    </a>
+                    
+                    <!-- Phone -->
+                    <a href="tel:+201009002381" class="contact-item">
+                        <div class="contact-icon phone-btn">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <span class="contact-label">الهاتف</span>
+                            <span class="contact-value">اتصل بنا</span>
+                        </div>
+                    </a>
+                    
+                    <!-- Location -->
+                    <a href="#location" class="contact-item">
+                        <div class="contact-icon location-btn">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <span class="contact-label">الموقع</span>
+                            <span class="contact-value">طوخ، القليوبية</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
 
-        <!-- Location Section - Without Map -->
-        <section id="location" class="mb-16">
-            <div class="location-info">
-                <div class="location-info-content text-center">
-                    <i class="fas fa-map-marker-alt location-icon-large"></i>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6">موقعنا</h2>
-                    <div class="max-w-2xl mx-auto space-y-4">
-                        <div class="flex items-center justify-center gap-3 text-xl">
-                            <i class="fas fa-store text-2xl"></i>
-                            <span class="font-semibold">فرع طوخ</span>
-                        </div>
-                        <div class="flex items-center justify-center gap-3 text-lg">
-                            <i class="fas fa-map-pin text-xl"></i>
-                            <span>منفذ أمان يامصر - طوخ ميدان الحرازية - أمام معرض القليوبية</span>
-                        </div>
-                        <div class="flex items-center justify-center gap-3 text-lg">
-                            <i class="fas fa-clock text-xl"></i>
-                            <span><strong>ساعات العمل:</strong> يومياً من 8:00 صباحاً - 1:00 بعد منتصف الليل</span>
-                        </div>
-                        <div class="mt-8">
-                            <p class="text-lg mb-6">تفضلوا بزيارتنا لتجربة تسوق فريدة!</p>
-                            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                                <a href="tel:+201009002381" class="bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
-                                    <i class="fas fa-phone"></i>
-                                    <span>اتصل بنا</span>
-                                </a>
-                                <a href="https://wa.me/201009002381" target="_blank" rel="noopener noreferrer" class="bg-green-500 text-white px-6 py-3 rounded-full font-bold hover:bg-green-600 transition-colors inline-flex items-center gap-2">
-                                    <i class="fab fa-whatsapp"></i>
-                                    <span>واتساب</span>
-                                </a>
+            <!-- Location Section -->
+            <section id="location" class="mb-16">
+                <div class="location-info">
+                    <div class="location-info-content text-center">
+                        <i class="fas fa-map-marker-alt location-icon-large"></i>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">موقعنا</h2>
+                        <div class="max-w-2xl mx-auto space-y-4">
+                            <div class="flex items-center justify-center gap-3 text-xl">
+                                <i class="fas fa-store text-2xl"></i>
+                                <span class="font-semibold">فرع طوخ</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-3 text-lg">
+                                <i class="fas fa-map-pin text-xl"></i>
+                                <span>منفذ أمان يامصر - طوخ ميدان الحرازية - أمام معرض القليوبية</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-3 text-lg">
+                                <i class="fas fa-clock text-xl"></i>
+                                <span><strong>ساعات العمل:</strong> يومياً من 8:00 صباحاً - 1:00 بعد منتصف الليل</span>
+                            </div>
+                            <div class="mt-8">
+                                <p class="text-lg mb-6">تفضلوا بزيارتنا لتجربة تسوق فريدة!</p>
+                                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                                    <a href="tel:+201009002381" class="bg-white text-blue-600 px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
+                                        <i class="fas fa-phone"></i>
+                                        <span>اتصل بنا</span>
+                                    </a>
+                                    <a href="https://wa.me/201009002381" target="_blank" rel="noopener noreferrer" class="bg-green-500 text-white px-6 py-3 rounded-full font-bold hover:bg-green-600 transition-colors inline-flex items-center gap-2">
+                                        <i class="fab fa-whatsapp"></i>
+                                        <span>واتساب</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Shop Page Section -->
+    <section id="shopPage" class="page-section">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Search Results Section -->
+            <div id="shopSearchResults" class="search-results">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-search ml-2"></i>
+                    نتائج البحث: "<span id="shopSearchTerm"></span>"
+                </h3>
+                <div id="shopSearchResultsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Search results will be inserted here -->
+                </div>
             </div>
-        </section>
-    </main>
+
+            <!-- Category Navigation Bar -->
+            <nav class="category-nav" id="categoryNav">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between">
+                        <!-- Desktop Categories -->
+                        <div class="desktop-categories flex items-center overflow-x-auto py-2">
+                            <a href="#all" class="category-item active" data-category="all">
+                                <i class="fas fa-th-large category-icon"></i>
+                                جميع المنتجات
+                            </a>
+                            <a href="#dairy" class="category-item" data-category="dairy">
+                                <i class="fas fa-cheese category-icon"></i>
+                                ألبان
+                            </a>
+                            <a href="#canned" class="category-item" data-category="canned">
+                                <i class="fas fa-box category-icon"></i>
+                                معلبات
+                            </a>
+                            <a href="#beverages" class="category-item" data-category="beverages">
+                                <i class="fas fa-coffee category-icon"></i>
+                                مشروبات
+                            </a>
+                            <a href="#sweet" class="category-item" data-category="sweet">
+                                <i class="fas fa-cookie category-icon"></i>
+                                حلويات
+                            </a>
+                            <a href="#Juices" class="category-item" data-category="Juices">
+                                <i class="fas fa-glass-water category-icon"></i>
+                                عصائر
+                            </a>
+                            <a href="#oil" class="category-item" data-category="oil">
+                                <i class="fas fa-oil-can category-icon"></i>
+                                زيوت
+                            </a>
+                            <a href="#dairy-eggs" class="category-item" data-category="dairy-eggs">
+                                <i class="fas fa-egg category-icon"></i>
+                                ألبان وبيض
+                            </a>
+                        </div>
+                        
+                        <!-- Mobile Menu Button -->
+                        <button class="mobile-menu-btn" id="mobileCategoryBtn">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Mobile Category Menu -->
+            <div class="mobile-category-menu" id="mobileCategoryMenu">
+                <a href="#all" class="mobile-category-item active" data-category="all">
+                    <i class="fas fa-th-large ml-2"></i>
+                    جميع المنتجات
+                </a>
+                <a href="#dairy" class="mobile-category-item" data-category="dairy">
+                    <i class="fas fa-cheese ml-2"></i>
+                    ألبان
+                </a>
+                <a href="#canned" class="mobile-category-item" data-category="canned">
+                    <i class="fas fa-box ml-2"></i>
+                    معلبات
+                </a>
+                <a href="#beverages" class="mobile-category-item" data-category="beverages">
+                    <i class="fas fa-coffee ml-2"></i>
+                    مشروبات
+                </a>
+                <a href="#sweet" class="mobile-category-item" data-category="sweet">
+                    <i class="fas fa-cookie ml-2"></i>
+                    حلويات
+                </a>
+                <a href="#Juices" class="mobile-category-item" data-category="Juices">
+                    <i class="fas fa-glass-water ml-2"></i>
+                    عصائر
+                </a>
+                <a href="#oil" class="mobile-category-item" data-category="oil">
+                    <i class="fas fa-oil-can ml-2"></i>
+                    زيوت
+                </a>
+                <a href="#dairy-eggs" class="mobile-category-item" data-category="dairy-eggs">
+                    <i class="fas fa-egg ml-2"></i>
+                    ألبان وبيض
+                </a>
+            </div>
+
+            <!-- Products Section -->
+            <section id="productsSection" class="mb-16">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">منتجاتنا</h2>
+                
+                <!-- Products Grid -->
+                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Product cards will be inserted here by JavaScript -->
+                </div>
+            </section>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white mt-10 shadow-inner">
@@ -1668,53 +1354,6 @@
     >
         <i class="fas fa-arrow-up text-xl"></i>
     </button>
-
-    <!-- Enhanced Image Modal -->
-    <div id="imageModal" class="image-modal">
-        <div class="image-modal-content">
-            <div class="modal-image-container">
-                <button class="modal-close" onclick="closeImageModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-                <button class="modal-nav modal-prev" onclick="navigateImage(-1)" id="modalPrev">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-                <button class="modal-nav modal-next" onclick="navigateImage(1)" id="modalNext">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <img id="modalImage" src="" alt="" class="modal-image">
-            </div>
-            
-            <div class="modal-thumbnails" id="modalThumbnails">
-                <!-- Thumbnails will be inserted here -->
-            </div>
-            
-            <div class="modal-product-info">
-                <h2 class="modal-product-title" id="modalProductTitle"></h2>
-                
-                <div class="modal-price-section">
-                    <span class="modal-old-price" id="modalOldPrice"></span>
-                    <span class="modal-new-price" id="modalNewPrice"></span>
-                    <span class="modal-discount-badge" id="modalDiscount"></span>
-                </div>
-                
-                <div class="modal-specifications">
-                    <h3 class="modal-spec-title">
-                        <i class="fas fa-list-ul"></i>
-                        مواصفات المنتج
-                    </h3>
-                    <ul class="modal-spec-list" id="modalSpecList">
-                        <!-- Specifications will be inserted here -->
-                    </ul>
-                </div>
-                
-                <button class="modal-add-to-cart" id="modalAddToCart">
-                    <i class="fas fa-cart-plus"></i>
-                    أضف للسلة
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Cart Sidebar -->
     <div id="cartOverlay" class="cart-overlay fixed inset-0 bg-black/60 z-40"></div>
@@ -2280,11 +1919,7 @@
         let currentCategory = 'all';
         let searchQuery = '';
         let isSearchMode = false;
-
-        // Image modal functionality
-        let currentImageIndex = 0;
-        let currentImageList = [];
-        let currentProduct = null;
+        let currentPage = 'home';
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
@@ -2311,6 +1946,36 @@
             localStorage.setItem('cart', JSON.stringify(cart));
         }
 
+        // Show page function
+        function showPage(page) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected page
+            if (page === 'home') {
+                document.getElementById('homePage').classList.add('active');
+                document.getElementById('homeNavBtn').classList.add('active');
+                currentPage = 'home';
+            } else if (page === 'shop') {
+                document.getElementById('shopPage').classList.add('active');
+                document.getElementById('shopNavBtn').classList.add('active');
+                currentPage = 'shop';
+            }
+            
+            // Clear search when switching pages
+            clearSearch();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // Render featured carousel
         function renderFeaturedCarousel() {
             const carousel = document.getElementById('featuredCarousel');
@@ -2323,7 +1988,7 @@
                 <div class="carousel-item ${index === 0 ? 'active' : 'hidden'} bg-white/10 backdrop-blur-sm rounded-2xl p-6">
                     <div class="flex flex-col md:flex-row items-center gap-6">
                         <div class="w-full md:w-1/3">
-                            <img src="${offer.image}" alt="${offer.name}" class="w-full h-48 object-cover rounded-xl cursor-pointer" onclick="openImageModal(${JSON.stringify(offer).replace(/"/g, '&quot;')}, ${offerProductsData.indexOf(offer)}, 'offer')">
+                            <img src="${offer.image}" alt="${offer.name}" class="w-full h-48 object-cover rounded-xl cursor-pointer" onclick="addToCart(${offer.id}, 'offer')">
                         </div>
                         <div class="w-full md:w-2/3 text-center md:text-right">
                             <h3 class="text-2xl font-bold mb-2">${offer.name}</h3>
@@ -2367,7 +2032,7 @@
             grid.innerHTML = offersToShow.map(offer => `
                 <div class="offer-card bg-white rounded-xl overflow-hidden shadow-lg stagger-item">
                     <div class="relative">
-                        <img src="${offer.image}" alt="${offer.name}" class="w-full h-48 object-cover cursor-pointer" onclick="openImageModal(${JSON.stringify(offer).replace(/"/g, '&quot;')}, ${offerProductsData.indexOf(offer)}, 'offer')">
+                        <img src="${offer.image}" alt="${offer.name}" class="w-full h-48 object-cover cursor-pointer" onclick="addToCart(${offer.id}, 'offer')">
                         <span class="discount-badge">${offer.discount}</span>
                         <div class="zoom-indicator">
                             <i class="fas fa-search-plus"></i>
@@ -2411,7 +2076,7 @@
             grid.innerHTML = productsToShow.map(product => `
                 <div class="product-card">
                     <div class="relative overflow-hidden">
-                        <img src="${product.image}" alt="${product.name}" class="product-image cursor-pointer" onclick="openImageModal(${JSON.stringify(product).replace(/"/g, '&quot;')}, ${productsData.indexOf(product)}, 'product')">
+                        <img src="${product.image}" alt="${product.name}" class="product-image cursor-pointer" onclick="addToCart(${product.id}, 'product')">
                         <span class="discount-badge">${product.discount}</span>
                         <div class="zoom-indicator">
                             <i class="fas fa-search-plus"></i>
@@ -2435,136 +2100,7 @@
             `).join('');
         }
 
-        // Open enhanced image modal
-        function openImageModal(product, index, type) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const modalProductTitle = document.getElementById('modalProductTitle');
-            const modalOldPrice = document.getElementById('modalOldPrice');
-            const modalNewPrice = document.getElementById('modalNewPrice');
-            const modalDiscount = document.getElementById('modalDiscount');
-            const modalSpecList = document.getElementById('modalSpecList');
-            const modalThumbnails = document.getElementById('modalThumbnails');
-            const modalAddToCart = document.getElementById('modalAddToCart');
-            
-            currentProduct = product;
-            currentImageIndex = 0;
-            
-            // Create image list with main image and additional images
-            currentImageList = [product.image, ...(product.additionalImages || [])];
-            
-            // Set product information
-            modalProductTitle.textContent = product.name;
-            modalOldPrice.textContent = product.oldPrice;
-            modalNewPrice.textContent = product.newPrice;
-            modalDiscount.textContent = product.discount;
-            
-            // Set main image
-            modalImage.src = currentImageList[0];
-            modalImage.alt = product.name;
-            
-            // Render specifications
-            if (product.specifications && product.specifications.length > 0) {
-                modalSpecList.innerHTML = product.specifications.map(spec => `
-                    <li class="modal-spec-item">
-                        <i class="fas fa-check-circle modal-spec-icon"></i>
-                        <span class="modal-spec-label">${spec.label}:</span>
-                        <span class="modal-spec-value">${spec.value}</span>
-                    </li>
-                `).join('');
-            } else {
-                modalSpecList.innerHTML = '<li class="modal-spec-item"><span class="modal-spec-value">لا توجد مواصفات إضافية</span></li>';
-            }
-            
-            // Render thumbnails
-            if (currentImageList.length > 1) {
-                modalThumbnails.innerHTML = currentImageList.map((img, idx) => `
-                    <img src="${img}" alt="صورة ${idx + 1}" 
-                         class="modal-thumbnail ${idx === 0 ? 'active' : ''}" 
-                         onclick="selectImage(${idx})">
-                `).join('');
-                modalThumbnails.style.display = 'flex';
-            } else {
-                modalThumbnails.style.display = 'none';
-            }
-            
-            // Setup add to cart button
-            modalAddToCart.onclick = function() {
-                addToCart(product.id, type);
-                closeImageModal();
-            };
-            
-            // Update navigation buttons
-            updateNavigationButtons();
-            
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Select image from thumbnails
-        function selectImage(index) {
-            currentImageIndex = index;
-            const modalImage = document.getElementById('modalImage');
-            const thumbnails = document.querySelectorAll('.modal-thumbnail');
-            
-            modalImage.src = currentImageList[index];
-            
-            // Update active thumbnail
-            thumbnails.forEach((thumb, idx) => {
-                if (idx === index) {
-                    thumb.classList.add('active');
-                } else {
-                    thumb.classList.remove('active');
-                }
-            });
-            
-            // Add fade effect
-            modalImage.style.opacity = '0';
-            setTimeout(() => {
-                modalImage.style.opacity = '1';
-            }, 100);
-        }
-
-        // Close image modal
-        function closeImageModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('open');
-            document.body.style.overflow = 'auto';
-            currentProduct = null;
-        }
-
-        // Navigate images
-        function navigateImage(direction) {
-            if (currentImageList.length <= 1) return;
-            
-            currentImageIndex += direction;
-            
-            // Handle circular navigation
-            if (currentImageIndex < 0) {
-                currentImageIndex = currentImageList.length - 1;
-            } else if (currentImageIndex >= currentImageList.length) {
-                currentImageIndex = 0;
-            }
-            
-            selectImage(currentImageIndex);
-        }
-
-        // Update navigation buttons
-        function updateNavigationButtons() {
-            const modalPrev = document.getElementById('modalPrev');
-            const modalNext = document.getElementById('modalNext');
-            
-            // Hide navigation if only one image
-            if (currentImageList.length <= 1) {
-                modalPrev.style.display = 'none';
-                modalNext.style.display = 'none';
-            } else {
-                modalPrev.style.display = 'flex';
-                modalNext.style.display = 'flex';
-            }
-        }
-
-        // Perform search function
+        // Perform search function - FIXED
         function performSearch() {
             const searchInput = document.getElementById('searchInput');
             searchQuery = searchInput.value.toLowerCase().trim();
@@ -2572,18 +2108,12 @@
             if (searchQuery === '') {
                 // Clear search and show normal view
                 isSearchMode = false;
-                document.getElementById('searchResults').classList.remove('active');
-                document.getElementById('offersSection').style.display = 'block';
-                document.getElementById('productsSection').style.display = 'block';
-                renderOffersGrid();
-                renderProductsGrid();
+                clearSearch();
                 return;
             }
             
             // Enter search mode
             isSearchMode = true;
-            document.getElementById('searchTerm').textContent = searchQuery;
-            document.getElementById('searchResults').classList.add('active');
             
             // Search in both offers and products
             const matchingOffers = offerProductsData.filter(offer => 
@@ -2595,58 +2125,107 @@
             
             const allMatches = [...matchingOffers, ...matchingProducts];
             
-            if (allMatches.length === 0) {
-                document.getElementById('searchResultsGrid').innerHTML = `
-                    <div class="no-results col-span-full">
-                        <i class="fas fa-search"></i>
-                        <h3 class="text-xl font-semibold mb-2">لا توجد نتائج</h3>
-                        <p>لم يتم العثور على منتجات تطابق بحثك عن "${searchQuery}"</p>
-                        <button onclick="clearSearch()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            مسح البحث
-                        </button>
-                    </div>
-                `;
-            } else {
-                document.getElementById('searchResultsGrid').innerHTML = allMatches.map(item => `
-                    <div class="product-card">
-                        <div class="relative overflow-hidden">
-                            <img src="${item.image}" alt="${item.name}" class="product-image cursor-pointer" onclick="openImageModal(${JSON.stringify(item).replace(/"/g, '&quot;')}, ${allMatches.indexOf(item)}, '${offerProductsData.includes(item) ? 'offer' : 'product'}')">
-                            <span class="discount-badge">${item.discount}</span>
-                            <div class="zoom-indicator">
-                                <i class="fas fa-search-plus"></i>
-                                اضغط للتكبير
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-bold text-gray-800 mb-2">${item.name}</h3>
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <span class="old-price">${item.oldPrice}</span>
-                                    <span class="new-price mr-2">${item.newPrice}</span>
-                                </div>
-                            </div>
-                            <button onclick="addToCart(${item.id}, '${offerProductsData.includes(item) ? 'offer' : 'product'}')" class="add-to-cart-btn w-full justify-center">
-                                <i class="fas fa-cart-plus"></i>
-                                أضف للسلة
+            // Determine which page to show results on
+            if (currentPage === 'home') {
+                // Show results on home page
+                document.getElementById('searchTerm').textContent = searchQuery;
+                document.getElementById('searchResults').classList.add('active');
+                
+                if (allMatches.length === 0) {
+                    document.getElementById('searchResultsGrid').innerHTML = `
+                        <div class="no-results col-span-full">
+                            <i class="fas fa-search"></i>
+                            <h3 class="text-xl font-semibold mb-2">لا توجد نتائج</h3>
+                            <p>لم يتم العثور على منتجات تطابق بحثك عن "${searchQuery}"</p>
+                            <button onclick="clearSearch()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                مسح البحث
                             </button>
                         </div>
-                    </div>
-                `).join('');
+                    `;
+                } else {
+                    document.getElementById('searchResultsGrid').innerHTML = allMatches.map(item => `
+                        <div class="product-card">
+                            <div class="relative overflow-hidden">
+                                <img src="${item.image}" alt="${item.name}" class="product-image cursor-pointer" onclick="addToCart(${item.id}, '${offerProductsData.includes(item) ? 'offer' : 'product'}')">
+                                <span class="discount-badge">${item.discount}</span>
+                                <div class="zoom-indicator">
+                                    <i class="fas fa-search-plus"></i>
+                                    اضغط للتكبير
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">${item.name}</h3>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div>
+                                        <span class="old-price">${item.oldPrice}</span>
+                                        <span class="new-price mr-2">${item.newPrice}</span>
+                                    </div>
+                                </div>
+                                <button onclick="addToCart(${item.id}, '${offerProductsData.includes(item) ? 'offer' : 'product'}')" class="add-to-cart-btn w-full justify-center">
+                                    <i class="fas fa-cart-plus"></i>
+                                    أضف للسلة
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } else {
+                // Show results on shop page
+                document.getElementById('shopSearchTerm').textContent = searchQuery;
+                document.getElementById('shopSearchResults').classList.add('active');
+                
+                if (allMatches.length === 0) {
+                    document.getElementById('shopSearchResultsGrid').innerHTML = `
+                        <div class="no-results col-span-full">
+                            <i class="fas fa-search"></i>
+                            <h3 class="text-xl font-semibold mb-2">لا توجد نتائج</h3>
+                            <p>لم يتم العثور على منتجات تطابق بحثك عن "${searchQuery}"</p>
+                            <button onclick="clearSearch()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                مسح البحث
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('shopSearchResultsGrid').innerHTML = allMatches.map(item => `
+                        <div class="product-card">
+                            <div class="relative overflow-hidden">
+                                <img src="${item.image}" alt="${item.name}" class="product-image cursor-pointer" onclick="addToCart(${item.id}, '${offerProductsData.includes(item) ? 'offer' : 'product'}')">
+                                <span class="discount-badge">${item.discount}</span>
+                                <div class="zoom-indicator">
+                                    <i class="fas fa-search-plus"></i>
+                                    اضغط للتكبير
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">${item.name}</h3>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div>
+                                        <span class="old-price">${item.oldPrice}</span>
+                                        <span class="new-price mr-2">${item.newPrice}</span>
+                                    </div>
+                                </div>
+                                <button onclick="addToCart(${item.id}, '${offerProductsData.includes(item) ? 'offer' : 'product'}')" class="add-to-cart-btn w-full justify-center">
+                                    <i class="fas fa-cart-plus"></i>
+                                    أضف للسلة
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
             }
-            
-            // Hide normal sections
-            document.getElementById('offersSection').style.display = 'none';
-            document.getElementById('productsSection').style.display = 'none';
         }
 
-        // Clear search function
+        // Clear search function - FIXED
         function clearSearch() {
             document.getElementById('searchInput').value = '';
             searchQuery = '';
             isSearchMode = false;
+            
+            // Hide search results on both pages
             document.getElementById('searchResults').classList.remove('active');
-            document.getElementById('offersSection').style.display = 'block';
-            document.getElementById('productsSection').style.display = 'block';
+            document.getElementById('shopSearchResults').classList.remove('active');
+            
+            // Re-render normal content
             renderOffersGrid();
             renderProductsGrid();
         }
@@ -2719,7 +2298,7 @@
             cartItems.innerHTML = cart.map(item => `
                 <div class="cart-item">
                     <div class="flex gap-4">
-                        <img src="${item.image}" alt="${item.name}" class="cart-item-image cursor-pointer" onclick="openImageModal(${JSON.stringify(item).replace(/"/g, '&quot;')}, 0, '${item.type}')">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image cursor-pointer" onclick="addToCart(${item.id}, '${item.type}')">
                         <div class="flex-1">
                             <h4 class="font-bold text-gray-800">${item.name}</h4>
                             <div class="flex items-center justify-between mt-2">
@@ -2824,27 +2403,6 @@
                 submitOrder();
             });
             
-            // Image modal close on overlay click
-            document.getElementById('imageModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeImageModal();
-                }
-            });
-            
-            // Keyboard navigation for image modal
-            document.addEventListener('keydown', function(e) {
-                const modal = document.getElementById('imageModal');
-                if (modal.classList.contains('open')) {
-                    if (e.key === 'Escape') {
-                        closeImageModal();
-                    } else if (e.key === 'ArrowRight') {
-                        navigateImage(-1);
-                    } else if (e.key === 'ArrowLeft') {
-                        navigateImage(1);
-                    }
-                }
-            });
-            
             // Mobile category menu toggle
             document.getElementById('mobileCategoryBtn').addEventListener('click', function() {
                 const mobileMenu = document.getElementById('mobileCategoryMenu');
@@ -2883,7 +2441,7 @@
                 });
             });
 
-            // Search functionality - multiple event listeners
+            // Search functionality
             const searchInput = document.getElementById('searchInput');
             
             // Search on input
